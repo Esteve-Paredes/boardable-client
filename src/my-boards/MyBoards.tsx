@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import styles from "./styles.module.css";
 
@@ -14,6 +15,9 @@ function MyBoards() {
           <button className={styles.bLogout}>Logout</button>
         </div>
       </header>
+      <div>
+        <Link to={"/signup"}>login</Link>
+      </div>
     </div>
   );
 }

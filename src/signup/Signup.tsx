@@ -1,9 +1,10 @@
-import axios from "axios";
 import styles from "./styles.module.css";
 import logo from "../assets/logo.svg";
 import arrow from "../assets/arrow.svg";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { fetchPost } from "../utils/functions-fetch";
+import { URL } from "../utils/variables";
 
 const initialFormData = {
   username: "",
@@ -14,24 +15,17 @@ function Signup() {
   const [formData, setFormData] = useState(initialFormData);
   const navigate = useNavigate();
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
 
-    const sendData = async () => {
-      try {
-        const response = await axios.post(
-          "http://localhost:5500/singup",
-          formData
-        );
-        if (response.data.ok) {
-          navigate("/");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    sendData();
+    const response = await fetchPost(URL, "/signup", formData);
+
+    if (response) {
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+      navigate("/");
+    } else {
+      console.error("fallo al crear un usuario");
+    }
   };
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
