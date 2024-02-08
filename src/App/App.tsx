@@ -1,26 +1,30 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useEffect } from "react";
 
-type user = {
+/* type user = {
   id: string;
   username: string;
   token: string;
-};
+}; */
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
+    const path = location.pathname;
     const objet = localStorage.getItem("user");
     if (objet) {
-      const user: user = JSON.parse(objet);
-      console.log(user);
-      navigate("/");
+      if (path === "/signup" || path === "/login") {
+        navigate("/", { replace: true });
+      }
     } else {
-      navigate("/signup");
+      if (path === "/") {
+        navigate("/signup");
+      }
     }
-  }, [navigate]);
+  }, [location]);
 
   return (
     <div className={styles.body}>

@@ -22,7 +22,7 @@ function Login() {
 
     const response = await fetchPost(URL, "/login", formData);
 
-    if (response) {
+    if (response.data?.ok === true) {
       localStorage.setItem("user", JSON.stringify(response?.data.data));
       navigate("/");
     } else {
@@ -72,7 +72,9 @@ function Login() {
         Create an account
         <img className={styles.arrow} src={arrow} alt="arrow" />
       </Link>
-      {validCredentials && <span>Invalid Credentials</span>}
+      {validCredentials && (
+        <span className={styles.errorMessage}>Invalid Credentials</span>
+      )}
     </div>
   );
 }
