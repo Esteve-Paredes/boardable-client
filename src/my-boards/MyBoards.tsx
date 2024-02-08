@@ -1,8 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import styles from "./styles.module.css";
 
 function MyBoards() {
+  const navigate = useNavigate();
+
+  const handdleClick = () => {
+    const objet = localStorage.getItem("user");
+    if (objet) {
+      localStorage.removeItem("user");
+      navigate("/login");
+    }
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -12,7 +22,9 @@ function MyBoards() {
         </div>
         <div className={styles.botonContainer}>
           <button className={styles.bAccount}>My Account</button>
-          <button className={styles.bLogout}>Logout</button>
+          <button className={styles.bLogout} onClick={handdleClick}>
+            Logout
+          </button>
         </div>
       </header>
       <div>
