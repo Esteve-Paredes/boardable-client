@@ -39,7 +39,7 @@
 }
 
 .label {
-  color: var(--foreground, #171717);
+  color: #171717;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -105,4 +105,13 @@
 
 .linkCreate:active {
   color: rgba(91, 33, 182, 1);
+}
+
+.errorMessage {
+  color: red;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px;
 }

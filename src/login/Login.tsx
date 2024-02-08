@@ -13,6 +13,8 @@ const initialFormData = {
 
 function Login() {
   const [formData, setFormData] = useState(initialFormData);
+  const [validCredentials, serValidCredentials] = useState(false);
+
   const navigate = useNavigate();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,6 +26,7 @@ function Login() {
       localStorage.setItem("user", JSON.stringify(response?.data.data));
       navigate("/");
     } else {
+      serValidCredentials(true);
       console.error("usuario no encontrado");
     }
   };
@@ -57,7 +60,7 @@ function Login() {
           </label>
           <input
             className={styles.input}
-            type="text"
+            type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
@@ -69,6 +72,7 @@ function Login() {
         Create an account
         <img className={styles.arrow} src={arrow} alt="arrow" />
       </Link>
+      {validCredentials && <span>Invalid Credentials</span>}
     </div>
   );
 }

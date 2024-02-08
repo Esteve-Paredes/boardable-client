@@ -13,16 +13,21 @@ const initialFormData = {
 
 function Signup() {
   const [formData, setFormData] = useState(initialFormData);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [usernameUsed, setUsernameUsed] = useState(false);
   const navigate = useNavigate();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const response = await fetchPost(URL, "/signup", formData);
+    console.log(response);
 
-    if (response) {
+    if (response.data?.ok === true) {
       localStorage.setItem("user", JSON.stringify(response.data.data));
       navigate("/");
+    } else if (response.ok === false) {
+      setUsernameUsed(true);
     } else {
       console.error("fallo al crear un usuario");
     }
@@ -32,6 +37,12 @@ function Signup() {
     const { name, value } = event.target;
     const nextFormData = { ...formData, [name]: value };
     setFormData(nextFormData);
+
+    if (name === "password" && value.length < 6) {
+      setErrorMessage(true);
+    } else {
+      setErrorMessage(false);
+    }
   }
 
   return (
@@ -51,6 +62,11 @@ function Signup() {
             onChange={handleChange}
           />
         </div>
+        {usernameUsed && (
+          <span className={styles.errorMessage}>
+            El usuario esta registrado
+          </span>
+        )}
         <div className={styles.containerInput}>
           <label className={styles.label} htmlFor="password">
             Password
@@ -63,6 +79,11 @@ function Signup() {
             onChange={handleChange}
           />
         </div>
+        {errorMessage && (
+          <span className={styles.errorMessage}>
+            La contraseña debe tener mas de 6 letras
+          </span>
+        )}
         <button className={styles.button}>Signup</button>
       </form>
       <Link className={styles.linkCreate} to={"/login"}>
