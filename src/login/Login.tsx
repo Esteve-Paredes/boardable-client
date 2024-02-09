@@ -21,6 +21,7 @@ function Login() {
     event.preventDefault();
 
     const response = await fetchPost(URL, "/login", formData);
+    console.log(response);
 
     if (response.data?.ok === true) {
       localStorage.setItem("user", JSON.stringify(response?.data.data));

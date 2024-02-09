@@ -2,6 +2,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
@@ -82,4 +84,171 @@
   font-style: normal;
   font-weight: 500;
   line-height: 20px;
+}
+
+.bodyBoards {
+  display: flex;
+  width: 1024px;
+  padding: 64px 0px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.containerBoards {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.titleBoards {
+  color: #171717;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.containerSelect {
+  display: flex;
+  width: 155px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.message {
+  color: #171717;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.select {
+  display: flex;
+  height: 40px;
+  padding: 8px 12px;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 6px;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+
+  color: #171717;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.gridContainer {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 32px 32px;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+
+.containerBoard {
+  display: flex;
+  width: 256px;
+  height: 144px;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  box-sizing: border-box;
+}
+
+.containerInputForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.messageTitle {
+  color: #262626;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.inputForm {
+  display: flex;
+  height: 22px;
+  padding: 8px 12px;
+  align-items: flex-start;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 6px;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+}
+
+.containerColor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.colorMessage {
+  color: #262626;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.Fbutton {
+  display: flex;
+  height: 36px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  background: #6d28d9;
+  color: #fff;
+
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.cards {
+  display: flex;
+  width: 256px;
+  height: 144px;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  background: #e2e8f0;
+  box-sizing: border-box;
+
+  color: #171717;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  text-decoration: none;
 }

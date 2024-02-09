@@ -22,3 +22,13 @@ export const fetchPost = async (
     }
   }
 };
+
+export const fetchGet = async (url: string, endPoint: string, data: object) => {
+  try {
+    return await axios.get<Response>(url + endPoint, data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};
