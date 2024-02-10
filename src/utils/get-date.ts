@@ -1,4 +1,4 @@
-import { DataBoars } from "../my-boards/MyBoards";
+import { DataBoars } from "../body/Body";
 
 export const getDate = (dataBoards: DataBoars[]) => {
   const date: string[] = [];

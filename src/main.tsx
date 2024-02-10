@@ -4,7 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App/App";
 import Login from "./login/Login";
 import Signup from "./signup/Signup";
-import MyBoards from "./my-boards/MyBoards";
+import Board from "./body/board/Board";
+import Body from "./body/Body";
+import MyBoards from "./body/my-boards/MyBoards";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +23,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <MyBoards />,
+        element: <Body />,
+        children: [
+          {
+            path: "/",
+            element: <MyBoards />,
+          },
+          {
+            path: "/boards/:id",
+            element: <Board />,
+          },
+        ],
       },
     ],
   },

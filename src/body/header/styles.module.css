@@ -1,0 +1,79 @@
+.header {
+  display: flex;
+  height: 96px;
+  width: 1280px;
+  padding: 27px 0px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoContainer {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.title {
+  color: #171717;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: -0.6px;
+}
+
+.botonContainer {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.bAccount {
+  display: inline-flex;
+  height: 36px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  border-radius: 6px;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+
+  color: #262626;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.bLogout {
+  display: inline-flex;
+  height: 36px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  border-radius: 6px;
+  border: 1px transparent;
+  background: #e5e5e5;
+
+  color: #262626;
+
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}

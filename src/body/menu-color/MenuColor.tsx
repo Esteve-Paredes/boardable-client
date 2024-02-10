@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { myColors } from "../../utils/variables";
-import styles from "../styles.module.css";
+import styles from "./styles.module.css";
 
 function MenuColor({ formData, setColor, setFormData }) {
   const [showMenuColors, setShowMenuColors] = useState(false);
