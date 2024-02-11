@@ -1,8 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import more from "../../assets/more.svg";
 import styles from "./styles.module.css";
 import { useContext, useEffect, useState } from "react";
-import { fetchGet, fetchPatch } from "../../utils/functions-fetch";
+import { fetchDelete, fetchGet, fetchPatch } from "../../utils/functions-fetch";
 import { URL } from "../../utils/variables";
 import { Page } from "../../App/App";
 
@@ -17,6 +17,8 @@ function Board() {
   const [dropDown, setDropDown] = useState(false);
   const [editData, setEditData] = useState(false);
   const [titleEdit, setTitleEdit] = useState("");
+
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -41,7 +43,6 @@ function Board() {
   };
 
   const inputEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     const newValue = event.target.value;
     setTitleEdit(newValue);
   };
@@ -50,14 +51,23 @@ function Board() {
     setDropDown(!dropDown);
   };
 
-  const optionDropDown = (
+  const optionDropDown = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const option = event.currentTarget.value;
     setDropDown(false);
-    console.log(event.currentTarget.value);
     if (option === "Edit") {
       setEditData(!editData);
+    } else if (option === "Delete") {
+      const response = await fetchDelete(URL, `/boards/${id}`, {
+        headers: {
+          id: user.id,
+          username: user.username,
+          authorization: `Bearer ${user.token}`,
+        },
+      });
+      navigate("/");
+      console.log(response);
     }
   };
 

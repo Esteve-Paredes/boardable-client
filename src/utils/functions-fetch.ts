@@ -46,3 +46,17 @@ export const fetchPatch = async (
     }
   }
 };
+
+export const fetchDelete = async (
+  url: string,
+  endPoint: string,
+  data: object
+) => {
+  try {
+    return await axios.delete<Response>(url + endPoint, data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};
