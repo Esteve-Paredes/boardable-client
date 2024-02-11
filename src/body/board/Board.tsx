@@ -1,19 +1,64 @@
 import { useParams } from "react-router-dom";
 import more from "../../assets/more.svg";
 import styles from "./styles.module.css";
-import { useEffect, useState } from "react";
-import { fetchGet } from "../../utils/functions-fetch";
+import { useContext, useEffect, useState } from "react";
+import { fetchGet, fetchPatch } from "../../utils/functions-fetch";
 import { URL } from "../../utils/variables";
+import { Page } from "../../App/App";
+
+const board = {
+  boardData: {},
+  color: "#ffffff",
+  title: "",
+};
 
 function Board() {
-  const [dataBoard, setDataBoard] = useState({ color: "#ffffff" });
+  const [dataBoard, setDataBoard] = useState(board);
+  const [dropDown, setDropDown] = useState(false);
+  const [editData, setEditData] = useState(false);
+  const [titleEdit, setTitleEdit] = useState("");
 
   const { id } = useParams();
+
+  const pageContext = useContext(Page);
+
+  if (!pageContext) {
+    throw new Error("Page context is undefined");
+  }
+
+  const { currentPage, setCurrentPage } = pageContext;
+  //
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const response = await fetchPatch(URL, `/boards/${id}`, {
+      title: titleEdit,
+    });
+    console.log(response.data.data);
+    setEditData(!editData);
+    setCurrentPage(!currentPage);
+  };
+
+  const inputEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
+    const newValue = event.target.value;
+    setTitleEdit(newValue);
+  };
+
+  const optionMore = () => {
+    setDropDown(!dropDown);
+  };
 
   const optionDropDown = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    const option = event.currentTarget.value;
+    setDropDown(false);
     console.log(event.currentTarget.value);
+    if (option === "Edit") {
+      setEditData(!editData);
+    }
   };
 
   const object = localStorage.getItem("user");
@@ -34,7 +79,7 @@ function Board() {
     };
 
     fetch();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div
@@ -42,15 +87,25 @@ function Board() {
       style={{ background: `${dataBoard.color}` }}>
       <div className={styles.containerBoard}>
         <div className={styles.containerTitle}>
-          <input
-            type="text"
-            className={styles.inputDisplay}
-            style={{ display: "none" }}
-          />
-          <h1 className={styles.title}>My board title</h1>
+          <form onSubmit={onSubmit}>
+            <input
+              type="text"
+              className={styles.inputDisplay}
+              style={{ display: editData ? "flex" : "none" }}
+              onChange={inputEdit}
+            />
+            <button style={{ display: "none" }}></button>
+          </form>
+          <h1
+            className={styles.title}
+            style={{ display: editData ? "none" : "block" }}>
+            {dataBoard.title}
+          </h1>
           <div className={styles.containerDropDown}>
-            <img src={more} alt="more" />
-            <div className={styles.dropDown}>
+            <img onClick={optionMore} src={more} alt="more" />
+            <div
+              className={styles.dropDown}
+              style={{ display: dropDown ? "flex" : "none" }}>
               <button
                 className={styles.option}
                 value="Edit"

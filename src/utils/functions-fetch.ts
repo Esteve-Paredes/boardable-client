@@ -32,3 +32,17 @@ export const fetchGet = async (url: string, endPoint: string, data: object) => {
     }
   }
 };
+
+export const fetchPatch = async (
+  url: string,
+  endPoint: string,
+  data: object
+) => {
+  try {
+    return await axios.patch<Response>(url + endPoint, data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};
