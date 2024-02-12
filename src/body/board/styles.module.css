@@ -18,50 +18,6 @@
   gap: 32px;
 }
 
-.containerTitle {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.title {
-  color: #171717;
-  font-family: Inter;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 32px;
-}
-
-.containerDropDown {
-  position: relative;
-}
-
-.dropDown {
-  position: absolute;
-  display: flex;
-  min-width: 96px;
-  padding: 8px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  border-radius: 6px;
-  background: #fff;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
-}
-
-.option {
-  background-color: white;
-  border: none;
-
-  color: #171717;
-  font-family: Inter;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px;
-}
-
 .containerMenuCards {
   display: flex;
   align-items: flex-start;
@@ -90,19 +46,6 @@
   justify-content: space-between;
 }
 
-.inputDisplay {
-  display: flex;
-  height: 35px;
-  padding: 8px 12px;
-  align-items: flex-start;
-  gap: 4px;
-  align-self: stretch;
-  border-radius: 6px;
-  border: 1px solid #d4d4d4;
-  background: #fff;
-  box-sizing: border-box;
-}
-
 .subTitle {
   color: #171717;
   font-family: Inter;
@@ -125,7 +68,7 @@
 }
 
 .task {
-  color: var(--foreground, #171717);
+  color: #171717;
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
@@ -135,17 +78,78 @@
 
 .containerAddCard {
   display: flex;
-  padding: 4px var(--spacing-2, 8px);
+  padding: 4px 8px;
   align-items: flex-start;
   gap: 4px;
   align-self: stretch;
 }
 
 .textAddCard {
-  color: var(--muted-foreground, #525252);
+  color: #525252;
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
+}
+
+.formCreateTable {
+  display: flex;
+  width: 280px;
+  padding: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+
+  border-radius: 6px;
+  background: #f5f5f5;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.containerInputTable {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.titleForm {
+  color: var(--foreground, #171717);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.inputForm {
+  display: flex;
+  height: 40px;
+  padding: 8px 12px;
+  align-items: flex-start;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 6px;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.buttonCreateTable {
+  display: flex;
+  height: 36px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  background: #6d28d9;
+
+  color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
 }
