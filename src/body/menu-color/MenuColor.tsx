@@ -2,13 +2,15 @@ import { useState } from "react";
 import { myColors } from "../../utils/variables";
 import styles from "./styles.module.css";
 
+type formData = {
+  title: string;
+  color: string;
+};
+
 type PropsMenuColor = {
-  formData: {
-    title: string;
-    color: string;
-  };
+  formData: formData;
   setColor: React.Dispatch<React.SetStateAction<string>>;
-  setFormData: React.Dispatch<React.SetStateAction<object>>;
+  setFormData: React.Dispatch<React.SetStateAction<formData>>;
 };
 
 function MenuColor({ formData, setColor, setFormData }: PropsMenuColor) {
