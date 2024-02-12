@@ -2,7 +2,16 @@ import { useState } from "react";
 import { myColors } from "../../utils/variables";
 import styles from "./styles.module.css";
 
-function MenuColor({ formData, setColor, setFormData }) {
+type PropsMenuColor = {
+  formData: {
+    title: string;
+    color: string;
+  };
+  setColor: React.Dispatch<React.SetStateAction<string>>;
+  setFormData: React.Dispatch<React.SetStateAction<object>>;
+};
+
+function MenuColor({ formData, setColor, setFormData }: PropsMenuColor) {
   const [showMenuColors, setShowMenuColors] = useState(false);
 
   const handdleMenuColor = () => {
