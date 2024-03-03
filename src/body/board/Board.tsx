@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import more from "../../assets/more.svg";
 import styles from "./styles.module.css";
 import { useContext, useEffect, useState } from "react";
 import { fetchGet } from "../../utils/functions-fetch";
 import { URL } from "../../utils/variables";
 import { Page } from "../../App/App";
 import Title from "./title/Title";
+import CreateList from "./createList/CreateList";
 
 const board = {
   boardData: {},
@@ -50,51 +50,15 @@ function Board() {
   return (
     <div
       className={styles.bodyBoard}
-      style={{ background: `${dataBoard.color}` }}>
+      style={{ background: `${dataBoard.color}` }}
+    >
       <div className={styles.containerBoard}>
         <Title
           dataBoard={dataBoard}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
-        <div className={styles.containerMenuCards}>
-          <form className={styles.formCreateTable}>
-            <div className={styles.containerInputTable}>
-              <p className={styles.titleForm}>List Title</p>
-              <input className={styles.inputForm} type="text" />
-            </div>
-            <button className={styles.buttonCreateTable}>
-              Create new list
-            </button>
-          </form>
-          <div className={styles.containerTasks}>
-            <div className={styles.containerFlex}>
-              <div>
-                <input
-                  type="text"
-                  className={styles.inputDisplay}
-                  style={{ display: "none" }}
-                />
-                <p className={styles.subTitle}>To do</p>
-              </div>
-              <img src={more} alt="more" />
-            </div>
-            <div className={styles.containerTask}>
-              <div>
-                <input
-                  type="text"
-                  className={styles.inputDisplay}
-                  style={{ display: "none" }}
-                />
-                <p className={styles.task}>Mi primera tarea</p>
-              </div>
-              <img src={more} alt="more" />
-            </div>
-            <div className={styles.containerAddCard}>
-              <p className={styles.textAddCard}>+ Add a card</p>
-            </div>
-          </div>
-        </div>
+        <CreateList />
       </div>
     </div>
   );
