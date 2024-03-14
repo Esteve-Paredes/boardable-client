@@ -23,6 +23,7 @@ function MyBoards() {
   const [dataBoards, setDataBoards] = useState<DataBoars[]>([]);
   const [formData, setFormData] = useState(initialFormData);
   const [color, setColor] = useState(myColors.first);
+  const [errorInputText, setErrorInputText] = useState(false);
 
   const pageContext = useContext(Page);
 
@@ -39,12 +40,19 @@ function MyBoards() {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!formData.title) {
+      setErrorInputText(true);
+      return;
+    }
+
     const response = await fetchPost(URL, "/", {
       userId: user.id,
       title: formData.title,
       color: formData.color,
     });
     setCurrentPage(!currentPage);
+    setErrorInputText(false);
+    formData.title = "";
     console.log(response);
   };
 
@@ -85,14 +93,21 @@ function MyBoards() {
         <form
           className={styles.containerBoard}
           style={{ backgroundColor: color }}
-          onSubmit={onSubmit}>
+          onSubmit={onSubmit}
+        >
           <div className={styles.containerInputForm}>
             <p className={styles.messageTitle}>Board Title</p>
             <input
               className={styles.inputForm}
               type="text"
               name="title"
+              value={formData.title}
               onChange={handleChange}
+              style={
+                errorInputText
+                  ? { border: "1px solid red" }
+                  : { border: "1px solid #d4d4d4" }
+              }
             />
           </div>
           <div className={styles.containerColor}>
@@ -110,7 +125,8 @@ function MyBoards() {
               key={board.id.toString()}
               className={styles.cards}
               style={{ backgroundColor: `${board.color}` }}
-              to={`/boards/${board.id}`}>
+              to={`/boards/${board.id}`}
+            >
               {board.title}
             </Link>
           );

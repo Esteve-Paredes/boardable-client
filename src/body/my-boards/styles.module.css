@@ -106,8 +106,8 @@
   gap: 4px;
   align-self: stretch;
   border-radius: 6px;
-  border: 1px solid #d4d4d4;
   background: #fff;
+  outline: none;
 }
 
 .containerColor {
