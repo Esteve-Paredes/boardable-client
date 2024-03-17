@@ -3,7 +3,7 @@ import { fetchGet, fetchPost } from "../../utils/functions-fetch";
 import { URL, myColors } from "../../utils/variables";
 import { Page } from "../../App/App";
 import MenuColor from "../menu-color/MenuColor";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 
 export type DataBoars = {
@@ -32,10 +32,19 @@ function MyBoards() {
   }
 
   const { currentPage, setCurrentPage } = pageContext;
+  const navigate = useNavigate();
 
-  //
+  //Configuracion de la Peticion
   const object = localStorage.getItem("user");
   const user = object && JSON.parse(object);
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+  //
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,11 +54,16 @@ function MyBoards() {
       return;
     }
 
-    const response = await fetchPost(URL, "/", {
-      userId: user.id,
-      title: formData.title,
-      color: formData.color,
-    });
+    const response = await fetchPost(
+      URL,
+      "/",
+      {
+        userId: user.id,
+        title: formData.title,
+        color: formData.color,
+      },
+      config
+    );
     setCurrentPage(!currentPage);
     setErrorInputText(false);
     formData.title = "";
@@ -71,8 +85,13 @@ function MyBoards() {
           authorization: `Bearer ${user.token}`,
         },
       });
+      console.log(response);
+      if (response.ok === false) {
+        localStorage.removeItem("user");
+        navigate("/login");
+        return;
+      }
       setDataBoards(response.data.data);
-      console.log(response.data.data);
     };
 
     fetch();

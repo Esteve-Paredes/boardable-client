@@ -29,7 +29,7 @@ function App() {
       }
     } else {
       if (path === "/") {
-        navigate("/signup");
+        navigate("/login");
       }
     }
   }, [location]);

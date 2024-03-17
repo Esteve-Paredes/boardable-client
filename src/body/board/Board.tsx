@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useContext, useEffect, useState } from "react";
 import { fetchGet } from "../../utils/functions-fetch";
@@ -24,6 +24,7 @@ function Board() {
     throw new Error("Page context is undefined");
   }
 
+  const navigate = useNavigate();
   const { currentPage, setCurrentPage } = pageContext;
   //
 
@@ -40,6 +41,11 @@ function Board() {
           authorization: `Bearer ${user.token}`,
         },
       });
+      if (response.ok === false) {
+        localStorage.removeItem("user");
+        navigate("/login");
+        return;
+      }
       setDataBoard(response.data.data);
       console.log(response.data);
     };
