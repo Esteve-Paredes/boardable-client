@@ -28,11 +28,13 @@ function Title({ dataBoard, currentPage, setCurrentPage }: PropsBoard) {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (titleEdit !== "") {
+      const response = await fetchPatch(URL, `/boards/${id}`, {
+        title: titleEdit,
+      });
+      console.log(response.data.data);
+    }
 
-    const response = await fetchPatch(URL, `/boards/${id}`, {
-      title: titleEdit,
-    });
-    console.log(response.data.data);
     setEditData(!editData);
     setCurrentPage(!currentPage);
   };
@@ -82,24 +84,28 @@ function Title({ dataBoard, currentPage, setCurrentPage }: PropsBoard) {
       </form>
       <h1
         className={styles.title}
-        style={{ display: editData ? "none" : "block" }}>
+        style={{ display: editData ? "none" : "block" }}
+      >
         {dataBoard.title}
       </h1>
       <div className={styles.containerDropDown}>
         <img onClick={optionMore} src={more} alt="more" />
         <div
           className={styles.dropDown}
-          style={{ display: dropDown ? "flex" : "none" }}>
+          style={{ display: dropDown ? "flex" : "none" }}
+        >
           <button
             className={styles.option}
             value="Edit"
-            onClick={optionDropDown}>
+            onClick={optionDropDown}
+          >
             Edit
           </button>
           <button
             className={styles.option}
             value="Delete"
-            onClick={optionDropDown}>
+            onClick={optionDropDown}
+          >
             Delete
           </button>
         </div>
