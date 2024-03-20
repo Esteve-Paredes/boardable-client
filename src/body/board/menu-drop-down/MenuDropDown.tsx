@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import more from "../../../assets/more.svg";
 import { useState } from "react";
@@ -18,8 +17,6 @@ function MenuDropDown({
 }: PropsBoard) {
   const [dropDown, setDropDown] = useState(false);
   const [editData, setEditData] = useState(false);
-
-  const navigate = useNavigate();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,7 +42,6 @@ function MenuDropDown({
       setEditData(!editData);
     } else if (option === "Delete") {
       deleteAction(); //funcion delete pasada por prop
-      navigate("/");
     }
   };
 

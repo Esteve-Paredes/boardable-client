@@ -53,6 +53,7 @@ function Board() {
       },
     });
     console.log(response);
+    navigate("/");
   };
 
   useEffect(() => {
