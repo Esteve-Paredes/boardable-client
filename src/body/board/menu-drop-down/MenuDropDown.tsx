@@ -17,7 +17,7 @@ type PropsBoard = {
   setCurrentPage: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function Title({ dataBoard, currentPage, setCurrentPage }: PropsBoard) {
+function MenuDropDown({ dataBoard, currentPage, setCurrentPage }: PropsBoard) {
   const [dropDown, setDropDown] = useState(false);
   const [editData, setEditData] = useState(false);
   const [titleEdit, setTitleEdit] = useState("");
@@ -114,4 +114,4 @@ function Title({ dataBoard, currentPage, setCurrentPage }: PropsBoard) {
   );
 }
 
-export default Title;
+export default MenuDropDown;

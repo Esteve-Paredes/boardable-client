@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { fetchGet } from "../../utils/functions-fetch";
 import { URL } from "../../utils/variables";
 import { Page } from "../../App/App";
-import Title from "./title/Title";
+import MenuDropDown from "./menu-drop-down/MenuDropDown";
 import CreateList from "./createList/CreateList";
 
 const board = {
@@ -59,7 +59,7 @@ function Board() {
       style={{ background: `${dataBoard.color}` }}
     >
       <div className={styles.containerBoard}>
-        <Title
+        <MenuDropDown
           dataBoard={dataBoard}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
