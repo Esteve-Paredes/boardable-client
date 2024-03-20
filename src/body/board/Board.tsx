@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useContext, useEffect, useState } from "react";
-import { fetchGet } from "../../utils/functions-fetch";
+import { fetchDelete, fetchGet, fetchPatch } from "../../utils/functions-fetch";
 import { URL } from "../../utils/variables";
 import { Page } from "../../App/App";
 import MenuDropDown from "./menu-drop-down/MenuDropDown";
@@ -15,6 +15,7 @@ const board = {
 
 function Board() {
   const [dataBoard, setDataBoard] = useState(board);
+  const [titleEdit, setTitleEdit] = useState("");
 
   const { id } = useParams();
 
@@ -30,6 +31,29 @@ function Board() {
 
   const object = localStorage.getItem("user");
   const user = object && JSON.parse(object);
+
+  //func edit para el componenete MenuDropDown
+  const editAction = async () => {
+    if (titleEdit !== "") {
+      const response = await fetchPatch(URL, `/boards/${id}`, {
+        title: titleEdit,
+      });
+      console.log(response.data.data);
+      setCurrentPage(!currentPage);
+    }
+  };
+
+  //func delete para el componente MenuDropDown
+  const deleteAction = async () => {
+    const response = await fetchDelete(URL, `/boards/${id}`, {
+      headers: {
+        id: user.id,
+        username: user.username,
+        authorization: `Bearer ${user.token}`,
+      },
+    });
+    console.log(response);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -59,11 +83,14 @@ function Board() {
       style={{ background: `${dataBoard.color}` }}
     >
       <div className={styles.containerBoard}>
-        <MenuDropDown
-          title={dataBoard.title}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        <div>
+          <MenuDropDown
+            title={dataBoard.title}
+            setTitle={setTitleEdit}
+            deleteAction={deleteAction}
+            editAction={editAction}
+          />
+        </div>
         <CreateList dataTask={dataBoard.boardData} />
       </div>
     </div>

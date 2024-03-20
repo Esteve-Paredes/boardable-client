@@ -5,6 +5,7 @@ import { URL } from "../../../utils/variables";
 import styles from "./styles.module.css";
 import React, { useContext, useState } from "react";
 import { Page } from "../../../App/App";
+import MenuDropDown from "../menu-drop-down/MenuDropDown";
 
 const list = {
   title: "",
@@ -107,17 +108,7 @@ function CreateList({ dataTask }) {
         dataTask.map((task: DataTask) => {
           return (
             <div className={styles.containerTasks} key={task.id}>
-              <div className={styles.containerFlex}>
-                <div>
-                  <input
-                    type="text"
-                    className={styles.inputDisplay}
-                    style={{ display: "none" }}
-                  />
-                  <p className={styles.subTitle}>{task.title}</p>
-                </div>
-                <img src={more} alt="more" />
-              </div>
+              <MenuDropDown title={task.title} />
               <div className={styles.containerTask}>
                 <div>
                   <input
