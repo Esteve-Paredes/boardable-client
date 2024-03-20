@@ -5,19 +5,13 @@ import styles from "./styles.module.css";
 import more from "../../../assets/more.svg";
 import { useState } from "react";
 
-type dataBoard = {
-  boardData: object;
-  color: string;
-  title: string;
-};
-
 type PropsBoard = {
-  dataBoard: dataBoard;
+  title: string;
   currentPage: boolean;
   setCurrentPage: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function MenuDropDown({ dataBoard, currentPage, setCurrentPage }: PropsBoard) {
+function MenuDropDown({ title, currentPage, setCurrentPage }: PropsBoard) {
   const [dropDown, setDropDown] = useState(false);
   const [editData, setEditData] = useState(false);
   const [titleEdit, setTitleEdit] = useState("");
@@ -86,7 +80,7 @@ function MenuDropDown({ dataBoard, currentPage, setCurrentPage }: PropsBoard) {
         className={styles.title}
         style={{ display: editData ? "none" : "block" }}
       >
-        {dataBoard.title}
+        {title}
       </h1>
       <div className={styles.containerDropDown}>
         <img onClick={optionMore} src={more} alt="more" />

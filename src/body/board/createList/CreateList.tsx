@@ -1,19 +1,38 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import more from "../../../assets/more.svg";
 import { fetchPost } from "../../../utils/functions-fetch";
 import { URL } from "../../../utils/variables";
 import styles from "./styles.module.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Page } from "../../../App/App";
 
 const list = {
   title: "",
 };
 
-function CreateList() {
+type DataTask = {
+  boardid: number;
+  createdat: string;
+  id: number;
+  title: string;
+  userid: number;
+};
+
+function CreateList({ dataTask }) {
   const [formData, setFormData] = useState(list);
   const [messageError, setMessageError] = useState(false);
 
   const { id } = useParams();
+
+  const pageContext = useContext(Page);
+
+  if (!pageContext) {
+    throw new Error("Page context is undefined");
+  }
+
+  const navigate = useNavigate();
+  const { currentPage, setCurrentPage } = pageContext;
+  //
 
   const getTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -39,6 +58,7 @@ function CreateList() {
   //
 
   const postList = (event: React.FormEvent<HTMLFormElement>) => {
+    window.scrollTo(0, 0);
     event.preventDefault();
 
     const postData = async () => {
@@ -47,11 +67,19 @@ function CreateList() {
         return;
       }
       const response = await fetchPost(URL, `/boards/${id}`, formData, config);
+      if (response.ok === false) {
+        localStorage.removeItem("user");
+        navigate("/login");
+        return;
+      }
+      setCurrentPage(!currentPage);
       console.log(response);
     };
 
     postData();
   };
+
+  console.log(dataTask);
 
   return (
     <div className={styles.containerMenuCards}>
@@ -73,33 +101,41 @@ function CreateList() {
         )}
         <button className={styles.buttonCreateTable}>Create new list</button>
       </form>
-      <div className={styles.containerTasks}>
-        <div className={styles.containerFlex}>
-          <div>
-            <input
-              type="text"
-              className={styles.inputDisplay}
-              style={{ display: "none" }}
-            />
-            <p className={styles.subTitle}>To do</p>
-          </div>
-          <img src={more} alt="more" />
-        </div>
-        <div className={styles.containerTask}>
-          <div>
-            <input
-              type="text"
-              className={styles.inputDisplay}
-              style={{ display: "none" }}
-            />
-            <p className={styles.task}>Mi primera tarea</p>
-          </div>
-          <img src={more} alt="more" />
-        </div>
-        <div className={styles.containerAddCard}>
-          <p className={styles.textAddCard}>+ Add a card</p>
-        </div>
-      </div>
+      {Object.keys(dataTask).length === 0 ? (
+        <></>
+      ) : (
+        dataTask.map((task: DataTask) => {
+          return (
+            <div className={styles.containerTasks} key={task.id}>
+              <div className={styles.containerFlex}>
+                <div>
+                  <input
+                    type="text"
+                    className={styles.inputDisplay}
+                    style={{ display: "none" }}
+                  />
+                  <p className={styles.subTitle}>{task.title}</p>
+                </div>
+                <img src={more} alt="more" />
+              </div>
+              <div className={styles.containerTask}>
+                <div>
+                  <input
+                    type="text"
+                    className={styles.inputDisplay}
+                    style={{ display: "none" }}
+                  />
+                  <p className={styles.task}>Mi primera tarea</p>
+                </div>
+                <img src={more} alt="more" />
+              </div>
+              <div className={styles.containerAddCard}>
+                <p className={styles.textAddCard}>+ Add a card</p>
+              </div>
+            </div>
+          );
+        })
+      )}
     </div>
   );
 }

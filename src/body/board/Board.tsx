@@ -60,11 +60,11 @@ function Board() {
     >
       <div className={styles.containerBoard}>
         <MenuDropDown
-          dataBoard={dataBoard}
+          title={dataBoard.title}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
-        <CreateList />
+        <CreateList dataTask={dataBoard.boardData} />
       </div>
     </div>
   );
