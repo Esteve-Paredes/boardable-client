@@ -5,19 +5,6 @@
   flex-wrap: wrap;
 }
 
-.containerTasks {
-  display: flex;
-  width: 280px;
-  padding: 8px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-
-  border-radius: 6px;
-  background: #f5f5f5;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
-}
-
 .containerFlex {
   display: flex;
   padding: 0px 8px;
@@ -46,32 +33,6 @@
   background: #fff;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
   justify-content: space-between;
-}
-
-.task {
-  color: #171717;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 28px;
-}
-
-.containerAddCard {
-  display: flex;
-  padding: 4px 8px;
-  align-items: flex-start;
-  gap: 4px;
-  align-self: stretch;
-}
-
-.textAddCard {
-  color: #525252;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
 }
 
 .formCreateTable {

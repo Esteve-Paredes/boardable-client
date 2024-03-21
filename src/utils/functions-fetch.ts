@@ -37,10 +37,11 @@ export const fetchGet = async (url: string, endPoint: string, data: object) => {
 export const fetchPatch = async (
   url: string,
   endPoint: string,
-  data: object
+  data: object,
+  config?: object
 ) => {
   try {
-    return await axios.patch<Response>(url + endPoint, data);
+    return await axios.patch<Response>(url + endPoint, data, config);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data;

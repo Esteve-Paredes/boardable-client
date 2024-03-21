@@ -1,25 +1,21 @@
 import { useNavigate, useParams } from "react-router-dom";
-import more from "../../../assets/more.svg";
 import { fetchPost } from "../../../utils/functions-fetch";
 import { URL } from "../../../utils/variables";
 import styles from "./styles.module.css";
 import React, { useContext, useState } from "react";
 import { Page } from "../../../App/App";
-import MenuDropDown from "../menu-drop-down/MenuDropDown";
+import { DataTask } from "../Board";
+import ListTask from "../listTask/ListTask";
 
 const list = {
   title: "",
 };
 
-type DataTask = {
-  boardid: number;
-  createdat: string;
-  id: number;
-  title: string;
-  userid: number;
+type Props = {
+  dataTask: DataTask[];
 };
 
-function CreateList({ dataTask }) {
+function CreateList({ dataTask }: Props) {
   const [formData, setFormData] = useState(list);
   const [messageError, setMessageError] = useState(false);
 
@@ -80,8 +76,6 @@ function CreateList({ dataTask }) {
     postData();
   };
 
-  console.log(dataTask);
-
   return (
     <div className={styles.containerMenuCards}>
       <form className={styles.formCreateTable} onSubmit={postList}>
@@ -106,25 +100,7 @@ function CreateList({ dataTask }) {
         <></>
       ) : (
         dataTask.map((task: DataTask) => {
-          return (
-            <div className={styles.containerTasks} key={task.id}>
-              <MenuDropDown title={task.title} />
-              <div className={styles.containerTask}>
-                <div>
-                  <input
-                    type="text"
-                    className={styles.inputDisplay}
-                    style={{ display: "none" }}
-                  />
-                  <p className={styles.task}>Mi primera tarea</p>
-                </div>
-                <img src={more} alt="more" />
-              </div>
-              <div className={styles.containerAddCard}>
-                <p className={styles.textAddCard}>+ Add a card</p>
-              </div>
-            </div>
-          );
+          return <ListTask task={task} key={task.id} />;
         })
       )}
     </div>

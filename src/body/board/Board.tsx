@@ -7,8 +7,22 @@ import { Page } from "../../App/App";
 import MenuDropDown from "./menu-drop-down/MenuDropDown";
 import CreateList from "./createList/CreateList";
 
+export type DataTask = {
+  boardid: number;
+  createdat: string;
+  id: number;
+  title: string;
+  userid: number;
+};
+
+type Board = {
+  boardData: DataTask;
+  color: string;
+  title: string;
+};
+
 const board = {
-  boardData: {},
+  boardData: [],
   color: "#ffffff",
   title: "",
 };
