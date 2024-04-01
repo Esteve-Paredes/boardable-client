@@ -70,6 +70,7 @@ function CreateList({ dataTask }: Props) {
         return;
       }
       setCurrentPage(!currentPage);
+      formData.title = "";
       console.log(response);
     };
 

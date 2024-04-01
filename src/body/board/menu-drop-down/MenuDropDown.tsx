@@ -7,6 +7,11 @@ type PropsBoard = {
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   deleteAction: () => Promise<void>;
   editAction: () => Promise<void>;
+  stylesDropDown?: {
+    containerTitle: object;
+    title: object;
+    input: object;
+  };
 };
 
 function MenuDropDown({
@@ -14,6 +19,7 @@ function MenuDropDown({
   setTitle,
   deleteAction,
   editAction,
+  stylesDropDown,
 }: PropsBoard) {
   const [dropDown, setDropDown] = useState(false);
   const [editData, setEditData] = useState(false);
@@ -45,21 +51,41 @@ function MenuDropDown({
     }
   };
 
+  const getStylesTitle = () => {
+    //funcion para convinar los estilos del titulo con los pasados por props
+    const stylesTitle = {
+      display: editData ? "none" : "block",
+    };
+
+    if (!stylesDropDown) return stylesTitle;
+    return { ...stylesTitle, ...stylesDropDown.title };
+  };
+
+  const getStylesContainerTitle = () => {
+    //funcion para obtener los estilos del containertitle mediante los props
+    if (!stylesDropDown) return;
+    return { ...stylesDropDown.containerTitle };
+  };
+
+  const getStylesInput = () => {
+    const styleInput = { display: editData ? "flex" : "none" };
+
+    if (!stylesDropDown) return styleInput;
+    return { ...styleInput, ...stylesDropDown.input };
+  };
+
   return (
-    <div className={styles.containerTitle}>
+    <div className={styles.containerTitle} style={getStylesContainerTitle()}>
       <form onSubmit={onSubmit}>
         <input
           type="text"
           className={styles.inputDisplay}
-          style={{ display: editData ? "flex" : "none" }}
+          style={getStylesInput()}
           onChange={inputEdit}
         />
         <button style={{ display: "none" }}></button>
       </form>
-      <h1
-        className={styles.title}
-        style={{ display: editData ? "none" : "block" }}
-      >
+      <h1 className={styles.title} style={getStylesTitle()}>
         {title}
       </h1>
       <div className={styles.containerDropDown}>
