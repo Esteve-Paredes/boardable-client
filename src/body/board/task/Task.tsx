@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
-import { fetchDelete, fetchPatch } from "../../../utils/functions-fetch";
+import {
+  deleteDataFromApi,
+  editDataFromApi,
+} from "../../../utils/functions-fetch";
 import MenuDropDown from "../menu-drop-down/MenuDropDown";
 import styles from "./styles.module.css";
 import { useContext, useState } from "react";
 import { Page } from "../../../App/App";
-import { URL } from "../../../utils/variables";
 import { Tasks } from "../listTask/ListTask";
 
 type PropsTask = {
@@ -53,8 +55,7 @@ function Task({ task }: PropsTask) {
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
-      const response = await fetchPatch(
-        URL,
+      const response = await editDataFromApi(
         `/boards/${id}/task`,
         {
           taskId: task.id,
@@ -69,7 +70,7 @@ function Task({ task }: PropsTask) {
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await fetchDelete(URL, `/boards/${id}/task`, {
+    const response = await deleteDataFromApi(`/boards/${id}/task`, {
       headers: {
         taskId: task.id,
         authorization: `Bearer ${user.token}`,

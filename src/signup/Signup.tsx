@@ -3,8 +3,7 @@ import logo from "../assets/logo.svg";
 import arrow from "../assets/arrow.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { fetchPost } from "../utils/functions-fetch";
-import { URL } from "../utils/variables";
+import { postDataFromApi } from "../utils/functions-fetch";
 
 const initialFormData = {
   username: "",
@@ -20,7 +19,7 @@ function Signup() {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await fetchPost(URL, "/signup", formData);
+    const response = await postDataFromApi("/signup", formData);
     console.log(response);
 
     if (response.data?.ok === true) {

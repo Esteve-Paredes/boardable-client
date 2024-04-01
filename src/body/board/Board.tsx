@@ -1,13 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
-import { useContext, useEffect, useState } from "react";
-import { fetchDelete, fetchGet, fetchPatch } from "../../utils/functions-fetch";
-import { URL } from "../../utils/variables";
-import { Page } from "../../App/App";
+import { useEffect, useState } from "react";
+import {
+  deleteDataFromApi,
+  getDataFromApi,
+  editDataFromApi,
+} from "../../utils/functions-fetch";
 import MenuDropDown from "./menu-drop-down/MenuDropDown";
 import CreateList from "./createList/CreateList";
+import useUpdatePage from "./custom-hook/useUpdatePage";
+import { getUserLocalStorage } from "../../utils/getUserLocalStorage";
 
-export type DataTask = {
+export type DataListTask = {
   boardid: number;
   createdat: string;
   id: number;
@@ -16,12 +20,12 @@ export type DataTask = {
 };
 
 type Board = {
-  boardData: DataTask;
+  boardData: DataListTask[] | never[];
   color: string;
   title: string;
 };
 
-const board = {
+const board: Board = {
   boardData: [],
   color: "#ffffff",
   title: "",
@@ -31,25 +35,17 @@ function Board() {
   const [dataBoard, setDataBoard] = useState(board);
   const [titleEdit, setTitleEdit] = useState("");
 
+  const { currentPage, setCurrentPage } = useUpdatePage();
   const { id } = useParams();
-
-  const pageContext = useContext(Page);
-
-  if (!pageContext) {
-    throw new Error("Page context is undefined");
-  }
-
   const navigate = useNavigate();
-  const { currentPage, setCurrentPage } = pageContext;
   //
 
-  const object = localStorage.getItem("user");
-  const user = object && JSON.parse(object);
+  const user = getUserLocalStorage();
 
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
-      const response = await fetchPatch(URL, `/boards/${id}`, {
+      const response = await editDataFromApi(`/boards/${id}`, {
         title: titleEdit,
       });
       console.log(response.data.data);
@@ -59,7 +55,7 @@ function Board() {
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await fetchDelete(URL, `/boards/${id}`, {
+    const response = await deleteDataFromApi(`/boards/${id}`, {
       headers: {
         id: user.id,
         username: user.username,
@@ -73,7 +69,7 @@ function Board() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetch = async () => {
-      const response = await fetchGet(URL, `/boards/${id}`, {
+      const response = await getDataFromApi(`/boards/${id}`, {
         headers: {
           id: user.id,
           username: user.username,
@@ -106,7 +102,7 @@ function Board() {
             editAction={editAction}
           />
         </div>
-        <CreateList dataTask={dataBoard.boardData} />
+        <CreateList dataListTask={dataBoard.boardData} />
       </div>
     </div>
   );

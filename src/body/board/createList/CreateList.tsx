@@ -1,10 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchPost } from "../../../utils/functions-fetch";
-import { URL } from "../../../utils/variables";
+import { postDataFromApi } from "../../../utils/functions-fetch";
 import styles from "./styles.module.css";
 import React, { useContext, useState } from "react";
 import { Page } from "../../../App/App";
-import { DataTask } from "../Board";
+import { DataListTask } from "../Board";
 import ListTask from "../listTask/ListTask";
 
 const list = {
@@ -12,10 +11,10 @@ const list = {
 };
 
 type Props = {
-  dataTask: DataTask[];
+  dataListTask: DataListTask[];
 };
 
-function CreateList({ dataTask }: Props) {
+function CreateList({ dataListTask }: Props) {
   const [formData, setFormData] = useState(list);
   const [messageError, setMessageError] = useState(false);
 
@@ -63,7 +62,7 @@ function CreateList({ dataTask }: Props) {
         setMessageError(true);
         return;
       }
-      const response = await fetchPost(URL, `/boards/${id}`, formData, config);
+      const response = await postDataFromApi(`/boards/${id}`, formData, config);
       if (response.ok === false) {
         localStorage.removeItem("user");
         navigate("/login");
@@ -97,10 +96,10 @@ function CreateList({ dataTask }: Props) {
         )}
         <button className={styles.buttonCreateTable}>Create new list</button>
       </form>
-      {Object.keys(dataTask).length === 0 ? (
+      {Object.keys(dataListTask).length === 0 ? (
         <></>
       ) : (
-        dataTask.map((task: DataTask) => {
+        dataListTask.map((task: DataListTask) => {
           return <ListTask task={task} key={task.id} />;
         })
       )}

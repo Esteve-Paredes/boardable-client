@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { fetchGet, fetchPost } from "../../utils/functions-fetch";
-import { URL, myColors } from "../../utils/variables";
+import { getDataFromApi, postDataFromApi } from "../../utils/functions-fetch";
+import { myColors } from "../../utils/variables";
 import { Page } from "../../App/App";
 import MenuColor from "../menu-color/MenuColor";
 import { Link, useNavigate } from "react-router-dom";
@@ -54,8 +54,7 @@ function MyBoards() {
       return;
     }
 
-    const response = await fetchPost(
-      URL,
+    const response = await postDataFromApi(
       "/",
       {
         userId: user.id,
@@ -78,7 +77,7 @@ function MyBoards() {
 
   useEffect(() => {
     const fetch = async () => {
-      const response = await fetchGet(URL, "/", {
+      const response = await getDataFromApi("/", {
         headers: {
           id: user.id,
           username: user.username,

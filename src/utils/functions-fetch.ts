@@ -1,4 +1,5 @@
 import axios from "axios";
+import { URL } from "./variables";
 
 type Response = {
   config: object;
@@ -9,14 +10,13 @@ type Response = {
   statusText: string;
 };
 
-export const fetchPost = async (
-  url: string,
+export const postDataFromApi = async (
   endPoint: string,
   data: object,
   config?: object
 ) => {
   try {
-    return await axios.post<Response>(url + endPoint, data, config);
+    return await axios.post<Response>(URL + endPoint, data, config);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data;
@@ -24,9 +24,9 @@ export const fetchPost = async (
   }
 };
 
-export const fetchGet = async (url: string, endPoint: string, data: object) => {
+export const getDataFromApi = async (endPoint: string, data: object) => {
   try {
-    return await axios.get<Response>(url + endPoint, data);
+    return await axios.get<Response>(URL + endPoint, data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data;
@@ -34,14 +34,13 @@ export const fetchGet = async (url: string, endPoint: string, data: object) => {
   }
 };
 
-export const fetchPatch = async (
-  url: string,
+export const editDataFromApi = async (
   endPoint: string,
   data: object,
   config?: object
 ) => {
   try {
-    return await axios.patch<Response>(url + endPoint, data, config);
+    return await axios.patch<Response>(URL + endPoint, data, config);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data;
@@ -49,13 +48,9 @@ export const fetchPatch = async (
   }
 };
 
-export const fetchDelete = async (
-  url: string,
-  endPoint: string,
-  data: object
-) => {
+export const deleteDataFromApi = async (endPoint: string, data: object) => {
   try {
-    return await axios.delete<Response>(url + endPoint, data);
+    return await axios.delete<Response>(URL + endPoint, data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data;

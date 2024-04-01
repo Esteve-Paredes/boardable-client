@@ -1,20 +1,19 @@
 import styles from "./styles.module.css";
 import MenuDropDown from "../menu-drop-down/MenuDropDown";
 import ButtonAddCard from "../button-add-a-card/ButtonAddCard";
-import { URL } from "../../../utils/variables";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  fetchDelete,
-  fetchGet,
-  fetchPatch,
+  deleteDataFromApi,
+  getDataFromApi,
+  editDataFromApi,
 } from "../../../utils/functions-fetch";
 import { useContext, useEffect, useState } from "react";
 import { Page } from "../../../App/App";
-import { DataTask } from "../Board";
+import { DataListTask } from "../Board";
 import Task from "../task/Task";
 
 type PropsTask = {
-  task: DataTask;
+  task: DataListTask;
 };
 
 export type Tasks = {
@@ -54,8 +53,7 @@ function ListTask({ task }: PropsTask) {
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
-      const response = await fetchPatch(
-        URL,
+      const response = await editDataFromApi(
         `/boards/${id}/listtask`,
         {
           taskId: task.id,
@@ -70,7 +68,7 @@ function ListTask({ task }: PropsTask) {
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await fetchDelete(URL, `/boards/${id}/listtask`, {
+    const response = await deleteDataFromApi(`/boards/${id}/listtask`, {
       headers: {
         taskId: task.id,
         authorization: `Bearer ${user.token}`,
@@ -82,7 +80,7 @@ function ListTask({ task }: PropsTask) {
 
   useEffect(() => {
     const getTasks = async () => {
-      const response = await fetchGet(URL, `/boards/${id}/task`, {
+      const response = await getDataFromApi(`/boards/${id}/task`, {
         headers: {
           id: user.id,
           username: user.username,

@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
 import styles from "./styles.module.css";
-import { fetchPost } from "../../../utils/functions-fetch";
-import { URL } from "../../../utils/variables";
+import { postDataFromApi } from "../../../utils/functions-fetch";
 import { useNavigate, useParams } from "react-router-dom";
 import { Page } from "../../../App/App";
-import { DataTask } from "../Board";
+import { DataListTask } from "../Board";
 
 type PropsTask = {
-  task: DataTask;
+  task: DataListTask;
 };
 
 const list = {
@@ -62,8 +61,7 @@ function ButtonAddCard({ task }: PropsTask) {
         setMessageError(true);
         return;
       }
-      const response = await fetchPost(
-        URL,
+      const response = await postDataFromApi(
         `/boards/${id}/task`,
         {
           title: formData.title,
