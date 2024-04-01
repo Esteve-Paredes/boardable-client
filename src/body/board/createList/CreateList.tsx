@@ -1,10 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { postDataFromApi } from "../../../utils/functions-fetch";
 import styles from "./styles.module.css";
-import React, { useContext, useState } from "react";
-import { Page } from "../../../App/App";
+import React, { useState } from "react";
 import { DataListTask } from "../Board";
 import ListTask from "../listTask/ListTask";
+import useUpdatePage from "../custom-hook/useUpdatePage";
+import { getUserLocalStorage } from "../../../utils/getUserLocalStorage";
 
 const list = {
   title: "",
@@ -18,17 +19,11 @@ function CreateList({ dataListTask }: Props) {
   const [formData, setFormData] = useState(list);
   const [messageError, setMessageError] = useState(false);
 
+  const { currentPage, setCurrentPage } = useUpdatePage();
   const { id } = useParams();
-
-  const pageContext = useContext(Page);
-
-  if (!pageContext) {
-    throw new Error("Page context is undefined");
-  }
-
   const navigate = useNavigate();
-  const { currentPage, setCurrentPage } = pageContext;
   //
+  const user = getUserLocalStorage();
 
   const getTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -41,18 +36,7 @@ function CreateList({ dataListTask }: Props) {
     const nextFormData = { ...formData, [name]: value };
     setFormData(nextFormData);
   };
-  //configuracion de la peticion
-  const object = localStorage.getItem("user");
-  const user = object && JSON.parse(object);
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
   //
-
   const postList = (event: React.FormEvent<HTMLFormElement>) => {
     window.scrollTo(0, 0);
     event.preventDefault();
@@ -62,7 +46,12 @@ function CreateList({ dataListTask }: Props) {
         setMessageError(true);
         return;
       }
-      const response = await postDataFromApi(`/boards/${id}`, formData, config);
+      const response = await postDataFromApi(`/boards/${id}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       if (response.ok === false) {
         localStorage.removeItem("user");
         navigate("/login");
@@ -70,7 +59,7 @@ function CreateList({ dataListTask }: Props) {
       }
       setCurrentPage(!currentPage);
       formData.title = "";
-      console.log(response);
+      console.log(response.data);
     };
 
     postData();

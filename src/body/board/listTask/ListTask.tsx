@@ -7,10 +7,10 @@ import {
   getDataFromApi,
   editDataFromApi,
 } from "../../../utils/functions-fetch";
-import { useContext, useEffect, useState } from "react";
-import { Page } from "../../../App/App";
+import { useEffect, useState } from "react";
 import { DataListTask } from "../Board";
 import Task from "../task/Task";
+import useUpdatePage from "../custom-hook/useUpdatePage";
 
 type PropsTask = {
   task: DataListTask;
@@ -29,38 +29,17 @@ function ListTask({ task }: PropsTask) {
   const [titleEdit, setTitleEdit] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  const { currentPage, setCurrentPage } = useUpdatePage();
   const { id } = useParams();
-
-  const pageContext = useContext(Page);
-
-  if (!pageContext) {
-    throw new Error("Page context is undefined");
-  }
   const navigate = useNavigate();
-  const { currentPage, setCurrentPage } = pageContext;
-
-  //configuracion de la peticion
-  const object = localStorage.getItem("user");
-  const user = object && JSON.parse(object);
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
 
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
-      const response = await editDataFromApi(
-        `/boards/${id}/listtask`,
-        {
-          taskId: task.id,
-          title: titleEdit,
-        },
-        config
-      );
+      const response = await editDataFromApi(`/boards/${id}/listtask`, {
+        taskId: task.id,
+        title: titleEdit,
+      });
       console.log(response);
       setCurrentPage(!currentPage);
     }
@@ -68,12 +47,7 @@ function ListTask({ task }: PropsTask) {
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await deleteDataFromApi(`/boards/${id}/listtask`, {
-      headers: {
-        taskId: task.id,
-        authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await deleteDataFromApi(`/boards/${id}/listtask`);
     console.log(response);
     setCurrentPage(!currentPage);
   };
@@ -81,11 +55,6 @@ function ListTask({ task }: PropsTask) {
   useEffect(() => {
     const getTasks = async () => {
       const response = await getDataFromApi(`/boards/${id}/task`, {
-        headers: {
-          id: user.id,
-          username: user.username,
-          authorization: `Bearer ${user.token}`,
-        },
         params: {
           boardId: task.boardid,
           listTaskId: task.id,

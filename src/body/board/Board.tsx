@@ -9,7 +9,6 @@ import {
 import MenuDropDown from "./menu-drop-down/MenuDropDown";
 import CreateList from "./createList/CreateList";
 import useUpdatePage from "./custom-hook/useUpdatePage";
-import { getUserLocalStorage } from "../../utils/getUserLocalStorage";
 
 export type DataListTask = {
   boardid: number;
@@ -40,8 +39,6 @@ function Board() {
   const navigate = useNavigate();
   //
 
-  const user = getUserLocalStorage();
-
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
@@ -55,13 +52,7 @@ function Board() {
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await deleteDataFromApi(`/boards/${id}`, {
-      headers: {
-        id: user.id,
-        username: user.username,
-        authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await deleteDataFromApi(`/boards/${id}`);
     console.log(response);
     navigate("/");
   };
@@ -69,13 +60,7 @@ function Board() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetch = async () => {
-      const response = await getDataFromApi(`/boards/${id}`, {
-        headers: {
-          id: user.id,
-          username: user.username,
-          authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await getDataFromApi(`/boards/${id}`);
       if (response.ok === false) {
         localStorage.removeItem("user");
         navigate("/login");

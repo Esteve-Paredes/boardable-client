@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styles from "./styles.module.css";
 import { postDataFromApi } from "../../../utils/functions-fetch";
 import { useNavigate, useParams } from "react-router-dom";
-import { Page } from "../../../App/App";
 import { DataListTask } from "../Board";
+import useUpdatePage from "../custom-hook/useUpdatePage";
 
 type PropsTask = {
   task: DataListTask;
@@ -18,16 +18,10 @@ function ButtonAddCard({ task }: PropsTask) {
   const [messageError, setMessageError] = useState(false);
   const [inputDisplay, setInputDisplay] = useState(false);
 
+  const { currentPage, setCurrentPage } = useUpdatePage();
   const { id } = useParams();
 
-  const pageContext = useContext(Page);
-
-  if (!pageContext) {
-    throw new Error("Page context is undefined");
-  }
-
   const navigate = useNavigate();
-  const { currentPage, setCurrentPage } = pageContext;
 
   const getTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -41,17 +35,6 @@ function ButtonAddCard({ task }: PropsTask) {
     setFormData(nextFormData);
   };
 
-  //configuracion de la peticion
-  const object = localStorage.getItem("user");
-  const user = object && JSON.parse(object);
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
-
   const onSubmitTask = (event: React.FormEvent<HTMLFormElement>) => {
     window.scrollTo(0, 0);
     event.preventDefault();
@@ -61,15 +44,11 @@ function ButtonAddCard({ task }: PropsTask) {
         setMessageError(true);
         return;
       }
-      const response = await postDataFromApi(
-        `/boards/${id}/task`,
-        {
-          title: formData.title,
-          boardId: task.boardid,
-          tasklistId: task.id,
-        },
-        config
-      );
+      const response = await postDataFromApi(`/boards/${id}/task`, {
+        title: formData.title,
+        boardId: task.boardid,
+        tasklistId: task.id,
+      });
       if (response.ok === false) {
         localStorage.removeItem("user");
         navigate("/login");

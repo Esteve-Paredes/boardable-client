@@ -5,9 +5,9 @@ import {
 } from "../../../utils/functions-fetch";
 import MenuDropDown from "../menu-drop-down/MenuDropDown";
 import styles from "./styles.module.css";
-import { useContext, useState } from "react";
-import { Page } from "../../../App/App";
+import { useState } from "react";
 import { Tasks } from "../listTask/ListTask";
+import useUpdatePage from "../custom-hook/useUpdatePage";
 
 type PropsTask = {
   task: Tasks;
@@ -15,6 +15,9 @@ type PropsTask = {
 
 function Task({ task }: PropsTask) {
   const [titleEdit, setTitleEdit] = useState("");
+
+  const { currentPage, setCurrentPage } = useUpdatePage();
+  const { id } = useParams();
 
   const stylesDropDown = {
     containerTitle: {
@@ -31,38 +34,13 @@ function Task({ task }: PropsTask) {
     },
   };
 
-  const { id } = useParams();
-
-  const pageContext = useContext(Page);
-
-  if (!pageContext) {
-    throw new Error("Page context is undefined");
-  }
-  //const navigate = useNavigate();
-  const { currentPage, setCurrentPage } = pageContext;
-
-  //configuracion de la peticion
-  const object = localStorage.getItem("user");
-  const user = object && JSON.parse(object);
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
-
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
-      const response = await editDataFromApi(
-        `/boards/${id}/task`,
-        {
-          taskId: task.id,
-          title: titleEdit,
-        },
-        config
-      );
+      const response = await editDataFromApi(`/boards/${id}/task`, {
+        taskId: task.id,
+        title: titleEdit,
+      });
       console.log(response);
       setCurrentPage(!currentPage);
     }
@@ -70,12 +48,7 @@ function Task({ task }: PropsTask) {
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await deleteDataFromApi(`/boards/${id}/task`, {
-      headers: {
-        taskId: task.id,
-        authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await deleteDataFromApi(`/boards/${id}/task`);
     console.log(response);
     setCurrentPage(!currentPage);
   };
