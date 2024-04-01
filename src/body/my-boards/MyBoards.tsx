@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getDataFromApi, postDataFromApi } from "../../utils/functions-fetch";
 import { myColors } from "../../utils/variables";
-import { Page } from "../../App/App";
 import MenuColor from "../menu-color/MenuColor";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
+import useUpdatePage from "../board/custom-hook/useUpdatePage";
 
 export type DataBoars = {
   id: number;
@@ -25,25 +25,8 @@ function MyBoards() {
   const [color, setColor] = useState(myColors.first);
   const [errorInputText, setErrorInputText] = useState(false);
 
-  const pageContext = useContext(Page);
-
-  if (!pageContext) {
-    throw new Error("Page context is undefined");
-  }
-
-  const { currentPage, setCurrentPage } = pageContext;
+  const { currentPage, setCurrentPage } = useUpdatePage();
   const navigate = useNavigate();
-
-  //Configuracion de la Peticion
-  const object = localStorage.getItem("user");
-  const user = object && JSON.parse(object);
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
   //
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,15 +37,10 @@ function MyBoards() {
       return;
     }
 
-    const response = await postDataFromApi(
-      "/",
-      {
-        userId: user.id,
-        title: formData.title,
-        color: formData.color,
-      },
-      config
-    );
+    const response = await postDataFromApi("/", {
+      title: formData.title,
+      color: formData.color,
+    });
     setCurrentPage(!currentPage);
     setErrorInputText(false);
     formData.title = "";
@@ -77,13 +55,7 @@ function MyBoards() {
 
   useEffect(() => {
     const fetch = async () => {
-      const response = await getDataFromApi("/", {
-        headers: {
-          id: user.id,
-          username: user.username,
-          authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await getDataFromApi("/");
       console.log(response);
       if (response.ok === false) {
         localStorage.removeItem("user");

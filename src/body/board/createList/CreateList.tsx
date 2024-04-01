@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { DataListTask } from "../Board";
 import ListTask from "../listTask/ListTask";
 import useUpdatePage from "../custom-hook/useUpdatePage";
-import { getUserLocalStorage } from "../../../utils/getUserLocalStorage";
 
 const list = {
   title: "",
@@ -23,7 +22,6 @@ function CreateList({ dataListTask }: Props) {
   const { id } = useParams();
   const navigate = useNavigate();
   //
-  const user = getUserLocalStorage();
 
   const getTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -46,12 +44,7 @@ function CreateList({ dataListTask }: Props) {
         setMessageError(true);
         return;
       }
-      const response = await postDataFromApi(`/boards/${id}`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await postDataFromApi(`/boards/${id}`, formData);
       if (response.ok === false) {
         localStorage.removeItem("user");
         navigate("/login");
