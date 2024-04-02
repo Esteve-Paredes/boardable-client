@@ -3,7 +3,7 @@ import { postDataFromApi } from "../../../utils/functions-fetch";
 import styles from "./styles.module.css";
 import React, { useState } from "react";
 import { DataListTask } from "../Board";
-import ListTask from "../listTask/ListTask";
+import ListTask from "../2-list-task/ListTask";
 import useUpdatePage from "../custom-hook/useUpdatePage";
 
 const list = {
@@ -11,10 +11,10 @@ const list = {
 };
 
 type Props = {
-  dataListTask: DataListTask[];
+  dataListBoardTask: DataListTask[];
 };
 
-function CreateList({ dataListTask }: Props) {
+function CreateListBoardTasks({ dataListBoardTask }: Props) {
   const [formData, setFormData] = useState(list);
   const [messageError, setMessageError] = useState(false);
 
@@ -78,15 +78,15 @@ function CreateList({ dataListTask }: Props) {
         )}
         <button className={styles.buttonCreateTable}>Create new list</button>
       </form>
-      {Object.keys(dataListTask).length === 0 ? (
+      {Object.keys(dataListBoardTask).length === 0 ? (
         <></>
       ) : (
-        dataListTask.map((task: DataListTask) => {
-          return <ListTask task={task} key={task.id} />;
+        dataListBoardTask.map((listTask: DataListTask) => {
+          return <ListTask listTask={listTask} key={listTask.id} />;
         })
       )}
     </div>
   );
 }
 
-export default CreateList;
+export default CreateListBoardTasks;

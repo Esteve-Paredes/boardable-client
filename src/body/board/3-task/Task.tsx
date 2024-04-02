@@ -6,7 +6,7 @@ import {
 import MenuDropDown from "../menu-drop-down/MenuDropDown";
 import styles from "./styles.module.css";
 import { useState } from "react";
-import { Tasks } from "../listTask/ListTask";
+import { Tasks } from "../2-list-task/ListTask";
 import useUpdatePage from "../custom-hook/useUpdatePage";
 
 type PropsTask = {
@@ -48,7 +48,11 @@ function Task({ task }: PropsTask) {
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await deleteDataFromApi(`/boards/${id}/task`);
+    const response = await deleteDataFromApi(`/boards/${id}/task`, {
+      params: {
+        taskId: task.id,
+      },
+    });
     console.log(response);
     setCurrentPage(!currentPage);
   };

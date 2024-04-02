@@ -9,11 +9,11 @@ import {
 } from "../../../utils/functions-fetch";
 import { useEffect, useState } from "react";
 import { DataListTask } from "../Board";
-import Task from "../task/Task";
+import Task from "../3-task/Task";
 import useUpdatePage from "../custom-hook/useUpdatePage";
 
 type PropsTask = {
-  task: DataListTask;
+  listTask: DataListTask;
 };
 
 export type Tasks = {
@@ -25,7 +25,7 @@ export type Tasks = {
   createdat: string;
 };
 
-function ListTask({ task }: PropsTask) {
+function ListTask({ listTask }: PropsTask) {
   const [titleEdit, setTitleEdit] = useState("");
   const [tasks, setTasks] = useState([]);
 
@@ -37,7 +37,7 @@ function ListTask({ task }: PropsTask) {
   const editAction = async () => {
     if (titleEdit !== "") {
       const response = await editDataFromApi(`/boards/${id}/listtask`, {
-        taskId: task.id,
+        taskId: listTask.id,
         title: titleEdit,
       });
       console.log(response);
@@ -47,7 +47,11 @@ function ListTask({ task }: PropsTask) {
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await deleteDataFromApi(`/boards/${id}/listtask`);
+    const response = await deleteDataFromApi(`/boards/${id}/listtask`, {
+      params: {
+        listTask: listTask.id,
+      },
+    });
     console.log(response);
     setCurrentPage(!currentPage);
   };
@@ -56,8 +60,8 @@ function ListTask({ task }: PropsTask) {
     const getTasks = async () => {
       const response = await getDataFromApi(`/boards/${id}/task`, {
         params: {
-          boardId: task.boardid,
-          listTaskId: task.id,
+          boardId: listTask.boardid,
+          listTaskId: listTask.id,
         },
       });
       if (response.ok === false) {
@@ -75,7 +79,7 @@ function ListTask({ task }: PropsTask) {
   return (
     <div className={styles.containerTasks}>
       <MenuDropDown
-        title={task.title}
+        title={listTask.title}
         setTitle={setTitleEdit}
         editAction={editAction}
         deleteAction={deleteAction}
@@ -87,7 +91,7 @@ function ListTask({ task }: PropsTask) {
           return <Task key={task.id} task={task} />;
         })
       )}
-      <ButtonAddCard task={task} />
+      <ButtonAddCard task={listTask} />
     </div>
   );
 }

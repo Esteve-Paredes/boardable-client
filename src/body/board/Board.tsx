@@ -7,7 +7,7 @@ import {
   editDataFromApi,
 } from "../../utils/functions-fetch";
 import MenuDropDown from "./menu-drop-down/MenuDropDown";
-import CreateList from "./createList/CreateList";
+import CreateListBoardTasks from "./1-create-list-board-tasks/CreateListBoardTasks";
 import useUpdatePage from "./custom-hook/useUpdatePage";
 
 export type DataListTask = {
@@ -87,7 +87,7 @@ function Board() {
             editAction={editAction}
           />
         </div>
-        <CreateList dataListTask={dataBoard.boardData} />
+        <CreateListBoardTasks dataListBoardTask={dataBoard.boardData} />
       </div>
     </div>
   );
