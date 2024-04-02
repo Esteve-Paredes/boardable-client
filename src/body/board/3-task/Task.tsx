@@ -19,12 +19,6 @@ function Task({ task }: PropsTask) {
   const { currentPage, setCurrentPage } = useUpdatePage();
   const { id } = useParams();
 
-  const stylesTask = {
-    taskContainerTitle: "taskContainerTitle",
-    taskTitle: "taskTitle",
-    taskInput: "taskInput",
-  };
-
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
@@ -51,7 +45,7 @@ function Task({ task }: PropsTask) {
   return (
     <div className={styles.containerDropDown}>
       <MenuDropDown
-        stylesTask={stylesTask}
+        type="task"
         title={task.title}
         setTitle={setTitleEdit}
         editAction={editAction}

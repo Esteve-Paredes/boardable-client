@@ -8,11 +8,7 @@ type PropsBoard = {
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   deleteAction: () => Promise<void>;
   editAction: () => Promise<void>;
-  stylesTask?: {
-    taskContainerTitle: string;
-    taskTitle: string;
-    taskInput: string;
-  };
+  type?: string;
 };
 
 function MenuDropDown({
@@ -20,7 +16,7 @@ function MenuDropDown({
   setTitle,
   deleteAction,
   editAction,
-  stylesTask,
+  type,
 }: PropsBoard) {
   const [dropDown, setDropDown] = useState(false);
   const [editData, setEditData] = useState(false);
@@ -52,30 +48,27 @@ function MenuDropDown({
     }
   };
 
-  const getClassName = (defaultClass: string, newClass?: string) => {
-    //implementacion de la libreria className para convinar clases
-    //funcion para obtener los estilos del titulo con la clase pasada por props
-    if (newClass) {
-      return classNames(styles[defaultClass], styles[newClass]);
-    }
-    return styles[defaultClass];
-  };
-
   return (
     <div
-      className={getClassName("containerTitle", stylesTask?.taskContainerTitle)}
+      className={classNames(styles.containerTitle, {
+        [styles.taskContainerTitle]: type === "task",
+      })}
     >
       <form onSubmit={onSubmit}>
         <input
           type="text"
-          className={getClassName("inputDisplay", stylesTask?.taskInput)}
+          className={classNames(styles.inputDisplay, {
+            [styles.taskInput]: type === "task",
+          })}
           style={{ display: editData ? "flex" : "none" }}
           onChange={inputEdit}
         />
         <button style={{ display: "none" }}></button>
       </form>
       <h1
-        className={getClassName("title", stylesTask?.taskTitle)}
+        className={classNames(styles.title, {
+          [styles.taskTitle]: type === "task",
+        })}
         style={{ display: editData ? "none" : "block" }}
       >
         {title}
