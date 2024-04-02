@@ -81,9 +81,11 @@ function CreateListBoardTasks({ dataListBoardTask }: Props) {
       {Object.keys(dataListBoardTask).length === 0 ? (
         <></>
       ) : (
-        dataListBoardTask.map((listTask: DataListTask) => {
-          return <ListTask listTask={listTask} key={listTask.id} />;
-        })
+        dataListBoardTask
+          .sort((a: DataListTask, b: DataListTask) => a.id - b.id)
+          .map((listTask: DataListTask) => {
+            return <ListTask listTask={listTask} key={listTask.id} />;
+          })
       )}
     </div>
   );

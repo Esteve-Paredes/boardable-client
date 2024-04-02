@@ -87,9 +87,11 @@ function ListTask({ listTask }: PropsTask) {
       {!tasks ? (
         <></>
       ) : (
-        tasks.map((task: Tasks) => {
-          return <Task key={task.id} task={task} />;
-        })
+        tasks
+          .sort((a: Tasks, b: Tasks) => a.id - b.id)
+          .map((task: Tasks) => {
+            return <Task key={task.id} task={task} />;
+          })
       )}
       <ButtonAddCard task={listTask} />
     </div>

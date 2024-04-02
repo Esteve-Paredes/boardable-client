@@ -53,6 +53,7 @@ function MenuDropDown({
   };
 
   const getClassName = (defaultClass: string, newClass?: string) => {
+    //implementacion de la libreria className para convinar clases
     //funcion para obtener los estilos del titulo con la clase pasada por props
     if (newClass) {
       return classNames(styles[defaultClass], styles[newClass]);
