@@ -1,4 +1,5 @@
 import styles from "./styles.module.css";
+import classNames from "classnames";
 import more from "../../../assets/more.svg";
 import { useState } from "react";
 
@@ -7,10 +8,10 @@ type PropsBoard = {
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   deleteAction: () => Promise<void>;
   editAction: () => Promise<void>;
-  stylesDropDown?: {
-    containerTitle: object;
-    title: object;
-    input: object;
+  stylesTask?: {
+    taskContainerTitle: string;
+    taskTitle: string;
+    taskInput: string;
   };
 };
 
@@ -19,7 +20,7 @@ function MenuDropDown({
   setTitle,
   deleteAction,
   editAction,
-  stylesDropDown,
+  stylesTask,
 }: PropsBoard) {
   const [dropDown, setDropDown] = useState(false);
   const [editData, setEditData] = useState(false);
@@ -51,41 +52,31 @@ function MenuDropDown({
     }
   };
 
-  const getStylesTitle = () => {
-    //funcion para convinar los estilos del titulo con los pasados por props
-    const stylesTitle = {
-      display: editData ? "none" : "block",
-    };
-
-    if (!stylesDropDown) return stylesTitle;
-    return { ...stylesTitle, ...stylesDropDown.title };
-  };
-
-  const getStylesContainerTitle = () => {
-    //funcion para obtener los estilos del containertitle mediante los props
-    if (!stylesDropDown) return;
-    return { ...stylesDropDown.containerTitle };
-  };
-
-  const getStylesInput = () => {
-    const styleInput = { display: editData ? "flex" : "none" };
-
-    if (!stylesDropDown) return styleInput;
-    return { ...styleInput, ...stylesDropDown.input };
+  const getClassName = (defaultClass: string, newClass?: string) => {
+    //funcion para obtener los estilos del titulo con la clase pasada por props
+    if (newClass) {
+      return classNames(styles[defaultClass], styles[newClass]);
+    }
+    return styles[defaultClass];
   };
 
   return (
-    <div className={styles.containerTitle} style={getStylesContainerTitle()}>
+    <div
+      className={getClassName("containerTitle", stylesTask?.taskContainerTitle)}
+    >
       <form onSubmit={onSubmit}>
         <input
           type="text"
-          className={styles.inputDisplay}
-          style={getStylesInput()}
+          className={getClassName("inputDisplay", stylesTask?.taskInput)}
+          style={{ display: editData ? "flex" : "none" }}
           onChange={inputEdit}
         />
         <button style={{ display: "none" }}></button>
       </form>
-      <h1 className={styles.title} style={getStylesTitle()}>
+      <h1
+        className={getClassName("title", stylesTask?.taskTitle)}
+        style={{ display: editData ? "none" : "block" }}
+      >
         {title}
       </h1>
       <div className={styles.containerDropDown}>

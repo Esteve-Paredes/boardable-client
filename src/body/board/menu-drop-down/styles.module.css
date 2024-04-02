@@ -68,3 +68,18 @@
   background: #fff;
   box-sizing: border-box;
 }
+
+.taskContainerTitle {
+  padding: 0;
+  height: auto;
+}
+
+.taskTitle {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.taskInput {
+  height: 28px;
+}
