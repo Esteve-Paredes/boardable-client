@@ -1,7 +1,8 @@
 import styles from "./styles.module.css";
 import classNames from "classnames";
 import more from "../../../assets/more.svg";
-import { useState } from "react";
+import React, { useState } from "react";
+import useClickOutside from "../custom-hook/useClickOutSide";
 
 type PropsBoard = {
   title: string;
@@ -18,8 +19,10 @@ function MenuDropDown({
   editAction,
   type,
 }: PropsBoard) {
-  const [dropDown, setDropDown] = useState(false);
+  const [openDropDown, setOpenDropDown] = useState(false);
   const [editData, setEditData] = useState(false);
+
+  const refMenuDropDown = useClickOutside(() => setOpenDropDown(false));
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,19 +36,19 @@ function MenuDropDown({
   };
 
   const optionMore = () => {
-    setDropDown(!dropDown);
+    setOpenDropDown(!openDropDown);
   };
 
-  const optionDropDown = async (
+  const optionDropDown = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const option = event.currentTarget.value;
-    setDropDown(false);
     if (option === "Edit") {
       setEditData(!editData);
     } else if (option === "Delete") {
       deleteAction(); //funcion delete pasada por prop
     }
+    setOpenDropDown(false);
   };
 
   return (
@@ -73,11 +76,11 @@ function MenuDropDown({
       >
         {title}
       </h1>
-      <div className={styles.containerDropDown}>
+      <div className={styles.containerDropDown} ref={refMenuDropDown}>
         <img onClick={optionMore} src={more} alt="more" />
         <div
           className={styles.dropDown}
-          style={{ display: dropDown ? "flex" : "none" }}
+          style={{ display: openDropDown ? "flex" : "none" }}
         >
           <button
             className={styles.option}

@@ -11,9 +11,10 @@
 .containerBoard {
   display: flex;
   height: 928px;
-  width: 1280px;
+  max-width: 1280px;
   padding: 16px 0px;
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
+  width: 100%;
 }

@@ -20,6 +20,8 @@
 .containerDropDown {
   position: relative;
   margin-left: auto;
+  width: 24px;
+  height: 24px;
 }
 
 .dropDown {
