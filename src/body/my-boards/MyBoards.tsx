@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { getDataFromApi, postDataFromApi } from "../../utils/functions-fetch";
+import { useState } from "react";
+import { postDataFromApi } from "../../utils/functions-fetch";
 import { myColors } from "../../utils/variables";
 import MenuColor from "../menu-color/MenuColor";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import useUpdatePage from "../board/custom-hook/useUpdatePage";
+import useGetData from "../board/custom-hook/useGetData";
 
 export type DataBoars = {
   id: number;
@@ -20,13 +21,11 @@ const initialFormData = {
 };
 
 function MyBoards() {
-  const [dataBoards, setDataBoards] = useState<DataBoars[]>([]);
   const [formData, setFormData] = useState(initialFormData);
   const [color, setColor] = useState(myColors.first);
   const [errorInputText, setErrorInputText] = useState(false);
 
   const { currentPage, setCurrentPage } = useUpdatePage();
-  const navigate = useNavigate();
   //
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -53,20 +52,15 @@ function MyBoards() {
     setFormData(newFormData);
   }
 
-  useEffect(() => {
-    const fetch = async () => {
-      const response = await getDataFromApi("/");
-      console.log(response);
-      if (response.ok === false) {
-        localStorage.removeItem("user");
-        navigate("/login");
-        return;
-      }
-      setDataBoards(response.data.data);
-    };
+  const hookConfig = {
+    configEndPoint: {
+      endPoint: "/",
+    },
+    initValue: [],
+    currentPage,
+  };
 
-    fetch();
-  }, [currentPage]);
+  const { apiResponse } = useGetData<DataBoars[]>(hookConfig);
 
   return (
     <div className={styles.bodyBoards}>
@@ -109,7 +103,7 @@ function MyBoards() {
             <button className={styles.Fbutton}>Create</button>
           </div>
         </form>
-        {dataBoards.map((board) => {
+        {apiResponse.map((board) => {
           return (
             <Link
               key={board.id.toString()}

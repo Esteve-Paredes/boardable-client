@@ -1,16 +1,16 @@
 import styles from "./styles.module.css";
 import MenuDropDown from "../menu-drop-down/MenuDropDown";
 import ButtonAddCard from "../button-add-a-card/ButtonAddCard";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   deleteDataFromApi,
-  getDataFromApi,
   editDataFromApi,
 } from "../../../utils/functions-fetch";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DataListTask } from "../Board";
 import Task from "../3-task/Task";
 import useUpdatePage from "../custom-hook/useUpdatePage";
+import useGetData from "../custom-hook/useGetData";
 
 type PropsTask = {
   listTask: DataListTask;
@@ -27,11 +27,8 @@ export type Tasks = {
 
 function ListTask({ listTask }: PropsTask) {
   const [titleEdit, setTitleEdit] = useState("");
-  const [tasks, setTasks] = useState([]);
-
   const { currentPage, setCurrentPage } = useUpdatePage();
   const { id } = useParams();
-  const navigate = useNavigate();
 
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
@@ -56,25 +53,21 @@ function ListTask({ listTask }: PropsTask) {
     setCurrentPage(!currentPage);
   };
 
-  useEffect(() => {
-    const getTasks = async () => {
-      const response = await getDataFromApi(`/boards/${id}/task`, {
+  const hookConfig = {
+    configEndPoint: {
+      endPoint: `/boards/${id}/task`,
+      params: {
         params: {
           boardId: listTask.boardid,
           listTaskId: listTask.id,
         },
-      });
-      if (response.ok === false) {
-        localStorage.removeItem("user");
-        navigate("/login");
-        return;
-      }
-      setTasks(response.data.data);
-      console.log(response.data);
-    };
+      },
+    },
+    initValue: [],
+    currentPage,
+  };
 
-    getTasks();
-  }, [currentPage]);
+  const { apiResponse } = useGetData<Tasks[]>(hookConfig);
 
   return (
     <div className={styles.containerTasks}>
@@ -84,7 +77,7 @@ function ListTask({ listTask }: PropsTask) {
         editAction={editAction}
         deleteAction={deleteAction}
       />
-      {tasks
+      {apiResponse
         ?.sort((a: Tasks, b: Tasks) => a.id - b.id)
         ?.map((task: Tasks) => {
           return <Task key={task.id} task={task} />;

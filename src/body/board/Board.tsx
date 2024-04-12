@@ -1,14 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   deleteDataFromApi,
-  getDataFromApi,
   editDataFromApi,
 } from "../../utils/functions-fetch";
 import MenuDropDown from "./menu-drop-down/MenuDropDown";
 import CreateListBoardTasks from "./1-create-list-board-tasks/CreateListBoardTasks";
 import useUpdatePage from "./custom-hook/useUpdatePage";
+import useGetData from "./custom-hook/useGetData";
 
 export type DataListTask = {
   boardid: number;
@@ -31,13 +31,11 @@ const board: Board = {
 };
 
 function Board() {
-  const [dataBoard, setDataBoard] = useState(board);
   const [titleEdit, setTitleEdit] = useState("");
 
   const { currentPage, setCurrentPage } = useUpdatePage();
   const { id } = useParams();
   const navigate = useNavigate();
-  //
 
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
@@ -57,37 +55,31 @@ function Board() {
     navigate("/");
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    const fetch = async () => {
-      const response = await getDataFromApi(`/boards/${id}`);
-      if (response.ok === false) {
-        localStorage.removeItem("user");
-        navigate("/login");
-        return;
-      }
-      setDataBoard(response.data.data);
-      console.log(response.data);
-    };
+  const hookConfig = {
+    configEndPoint: {
+      endPoint: `/boards/${id}`,
+    },
+    initValue: board,
+    currentPage,
+  };
 
-    fetch();
-  }, [currentPage]);
+  const { apiResponse } = useGetData<Board>(hookConfig);
 
   return (
     <div
       className={styles.bodyBoard}
-      style={{ background: `${dataBoard.color}` }}
+      style={{ background: `${apiResponse.color}` }}
     >
       <div className={styles.containerBoard}>
         <div>
           <MenuDropDown
-            title={dataBoard.title}
+            title={apiResponse.title}
             setTitle={setTitleEdit}
             deleteAction={deleteAction}
             editAction={editAction}
           />
         </div>
-        <CreateListBoardTasks dataListBoardTask={dataBoard.boardData} />
+        <CreateListBoardTasks dataListBoardTask={apiResponse.boardData} />
       </div>
     </div>
   );
