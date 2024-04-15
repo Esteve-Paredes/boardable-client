@@ -3,54 +3,44 @@ import styles from "./styles.module.css";
 import classNames from "classnames";
 
 interface PropsInputText {
-  classStyles?: {
-    containerInput?: string;
-    label?: string;
-    input?: string;
-  };
   label?: string;
   type?: string;
   name: string;
+  parentComponentName?: string;
   errorInputText?: boolean;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 function InputText({
-  classStyles,
   label,
   type = "text",
   name,
+  parentComponentName,
   errorInputText,
   value,
   onChange,
 }: PropsInputText) {
-  const getStylesToInput = (nameElement: string) => {
-    if (!classStyles) return;
-    const { containerInput, label, input } = classStyles;
-    if (containerInput && nameElement === "containerInput")
-      return { [styles[containerInput]]: containerInput };
-    if (label && nameElement === "label") return { [styles[label]]: label };
-    if (input && nameElement === "input") return { [styles[input]]: input };
-  };
-
   return (
     <div
-      className={classNames(
-        styles.containerInput,
-        getStylesToInput("containerInput")
-      )}
+      className={classNames(styles.containerInput, {
+        [styles["containerInput" + parentComponentName]]: parentComponentName,
+      })}
     >
       {label && (
         <label
-          className={classNames(styles.label, getStylesToInput("label"))}
+          className={classNames(styles.label, {
+            [styles["label" + parentComponentName]]: parentComponentName,
+          })}
           htmlFor={name}
         >
           {label}
         </label>
       )}
       <input
-        className={classNames(styles.input, getStylesToInput("input"))}
+        className={classNames(styles.input, {
+          [styles["input" + parentComponentName]]: parentComponentName,
+        })}
         style={
           errorInputText ? { borderColor: "red" } : { borderColor: "#d4d4d4" }
         }

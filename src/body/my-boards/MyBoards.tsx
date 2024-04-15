@@ -81,10 +81,7 @@ function MyBoards() {
           onSubmit={onSubmit}
         >
           <InputText
-            classStyles={{
-              label: "messageTitle",
-              input: "inputForm",
-            }}
+            parentComponentName="MyBoards"
             label="Board Title"
             type="text"
             name="title"
@@ -104,7 +101,7 @@ function MyBoards() {
         {apiResponse.map((board) => {
           return (
             <Link
-              key={board.id.toString()}
+              key={board.id}
               className={styles.cards}
               style={{ backgroundColor: `${board.color}` }}
               to={`/boards/${board.id}`}

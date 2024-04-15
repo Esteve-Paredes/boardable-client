@@ -16,18 +16,26 @@
 
 .input {
   display: flex;
-  height: 24px;
+  height: 42px;
   padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid #d4d4d4;
   background: #fff;
   outline: none;
+  box-sizing: border-box;
 }
 /* Aqui los estylos nuevos */
-.messageTitle {
+.labelMyBoards {
   color: #262626;
 }
 
-.inputForm {
-  height: 22px;
+.inputMyBoards {
+  height: 40px;
+}
+
+.inputBo {
+  height: 40px;
+  align-items: flex-start;
+  gap: 4px;
+  align-self: stretch;
 }
