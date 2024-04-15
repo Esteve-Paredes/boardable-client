@@ -11,6 +11,7 @@ interface PropsInputText {
   label?: string;
   type?: string;
   name: string;
+  errorInputText?: boolean;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -20,6 +21,7 @@ function InputText({
   label,
   type = "text",
   name,
+  errorInputText,
   value,
   onChange,
 }: PropsInputText) {
@@ -49,6 +51,9 @@ function InputText({
       )}
       <input
         className={classNames(styles.input, getStylesToInput("input"))}
+        style={
+          errorInputText ? { borderColor: "red" } : { borderColor: "#d4d4d4" }
+        }
         type={type}
         name={name}
         value={value}

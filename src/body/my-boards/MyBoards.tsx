@@ -88,6 +88,7 @@ function MyBoards() {
             label="Board Title"
             type="text"
             name="title"
+            errorInputText={errorInputText}
             value={formData.title}
             onChange={handleChange}
           />
