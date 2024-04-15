@@ -1,0 +1,33 @@
+.containerInput {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.label {
+  color: #171717;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.input {
+  display: flex;
+  height: 24px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+  outline: none;
+}
+/* Aqui los estylos nuevos */
+.messageTitle {
+  color: #262626;
+}
+
+.inputForm {
+  height: 22px;
+}

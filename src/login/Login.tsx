@@ -4,6 +4,7 @@ import arrow from "../assets/arrow.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { postDataFromApi } from "../utils/functions-fetch";
+import InputText from "../Components/InputText/InputText";
 
 const initialFormData = {
   username: "",
@@ -42,30 +43,20 @@ function Login() {
       <img className={styles.logo} src={logo} alt="logo" />
       <h1 className={styles.title}>Welcome to Boardable</h1>
       <form className={styles.formulario} onSubmit={onSubmit}>
-        <div className={styles.containerInput}>
-          <label className={styles.label} htmlFor="userName">
-            Username
-          </label>
-          <input
-            className={styles.input}
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-        </div>
-        <div className={styles.containerInput}>
-          <label className={styles.label} htmlFor="password">
-            Password
-          </label>
-          <input
-            className={styles.input}
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
+        <InputText
+          label="Username"
+          type="text"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+        />
+        <InputText
+          label="Password"
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
         <button className={styles.button}>Login</button>
       </form>
       <Link className={styles.linkCreate} to={"/signup"}>

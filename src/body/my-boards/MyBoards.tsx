@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import useUpdatePage from "../board/custom-hook/useUpdatePage";
 import useGetData from "../board/custom-hook/useGetData";
+import InputText from "../../Components/InputText/InputText";
 
 export type DataBoars = {
   id: number;
@@ -79,21 +80,17 @@ function MyBoards() {
           style={{ backgroundColor: color }}
           onSubmit={onSubmit}
         >
-          <div className={styles.containerInputForm}>
-            <p className={styles.messageTitle}>Board Title</p>
-            <input
-              className={styles.inputForm}
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              style={
-                errorInputText
-                  ? { border: "1px solid red" }
-                  : { border: "1px solid #d4d4d4" }
-              }
-            />
-          </div>
+          <InputText
+            classStyles={{
+              label: "messageTitle",
+              input: "inputForm",
+            }}
+            label="Board Title"
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+          />
           <div className={styles.containerColor}>
             <MenuColor
               formData={formData}
