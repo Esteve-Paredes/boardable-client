@@ -1,4 +1,4 @@
-export const URL = "http://localhost:5500";
+export const URL = import.meta.env["VITE_API_BASE_URL"];
 
 export const myColors = {
   first: "rgba(226, 232, 240, 1)",

@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { DataListTask } from "../Board";
 import ListTask from "../2-list-task/ListTask";
 import useUpdatePage from "../custom-hook/useUpdatePage";
+import InputText from "../../../Components/InputText/InputText";
 
 const list = {
   title: "",
@@ -61,16 +62,13 @@ function CreateListBoardTasks({ dataListBoardTask }: Props) {
   return (
     <div className={styles.containerMenuCards}>
       <form className={styles.formCreateTable} onSubmit={postList}>
-        <div className={styles.containerInputTable}>
-          <p className={styles.titleForm}>List Title</p>
-          <input
-            className={styles.inputForm}
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={getTitle}
-          />
-        </div>
+        <InputText
+          name="title"
+          label="List Title"
+          parentComponentName="CreateListBoard"
+          value={formData.title}
+          onChange={getTitle}
+        />
         {messageError && (
           <span className={styles.errorMessage}>
             La lista necesita un Titulo

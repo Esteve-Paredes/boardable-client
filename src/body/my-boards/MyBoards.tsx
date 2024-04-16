@@ -83,7 +83,6 @@ function MyBoards() {
           <InputText
             parentComponentName="MyBoards"
             label="Board Title"
-            type="text"
             name="title"
             errorInputText={errorInputText}
             value={formData.title}
