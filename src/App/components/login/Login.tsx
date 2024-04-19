@@ -1,10 +1,10 @@
 import styles from "../signup/styles.module.css";
-import logo from "../../assets/logo.svg";
-import arrow from "../../assets/arrow.svg";
+import logo from "../../../assets/logo.svg";
+import arrow from "../../../assets/arrow.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { postDataFromApi } from "../../utils/functions-fetch";
-import InputText from "../../Global-Components/InputText/InputText";
+import InputText from "../../global-components/InputText/InputText";
 
 const initialFormData = {
   username: "",

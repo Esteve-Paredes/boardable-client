@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Page } from "../App/App";
+import { Page } from "../../App/App";
 
 function useUpdatePage() {
   //hook que recarga la pagina

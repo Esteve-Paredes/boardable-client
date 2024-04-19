@@ -5,8 +5,8 @@ import { myColors } from "../../../utils/variables";
 import useUpdatePage from "../../../custom-hook/useUpdatePage";
 import { postDataFromApi } from "../../../utils/functions-fetch";
 import useGetData from "../../../custom-hook/useGetData";
-import InputText from "../../../Global-Components/InputText/InputText";
-import MenuColor from "../../../Global-Components/menu-color/MenuColor";
+import InputText from "../../../global-components/InputText/InputText";
+import MenuColor from "../../../global-components/menu-color/MenuColor";
 
 export type DataBoars = {
   id: number;

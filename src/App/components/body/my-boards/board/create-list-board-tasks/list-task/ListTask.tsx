@@ -8,8 +8,8 @@ import {
   editDataFromApi,
 } from "../../../../../../utils/functions-fetch";
 import useGetData from "../../../../../../custom-hook/useGetData";
-import MenuDropDown from "../../../../../../Global-Components/menu-drop-down/MenuDropDown";
-import ButtonAddCard from "../../../../../../Global-Components/button-add-a-card/ButtonAddCard";
+import MenuDropDown from "../../../../../../global-components/menu-drop-down/MenuDropDown";
+import ButtonAddCard from "../../../../../../global-components/button-add-a-card/ButtonAddCard";
 import Task from "./task/Task";
 
 type PropsTask = {

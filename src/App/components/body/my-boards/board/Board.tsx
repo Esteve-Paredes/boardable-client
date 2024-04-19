@@ -7,7 +7,7 @@ import {
   editDataFromApi,
 } from "../../../../utils/functions-fetch";
 import useGetData from "../../../../custom-hook/useGetData";
-import MenuDropDown from "../../../../Global-Components/menu-drop-down/MenuDropDown";
+import MenuDropDown from "../../../../global-components/menu-drop-down/MenuDropDown";
 import CreateListBoardTasks from "./create-list-board-tasks/CreateListBoardTasks";
 
 export type DataListTask = {

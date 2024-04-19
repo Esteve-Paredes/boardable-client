@@ -6,7 +6,7 @@ import {
   deleteDataFromApi,
   editDataFromApi,
 } from "../../../../../../../utils/functions-fetch";
-import MenuDropDown from "../../../../../../../Global-Components/menu-drop-down/MenuDropDown";
+import MenuDropDown from "../../../../../../../global-components/menu-drop-down/MenuDropDown";
 import { Tasks } from "../ListTask";
 
 type PropsTask = {

@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 import classNames from "classnames";
-import more from "../../assets/more.svg";
+import more from "../../../assets/more.svg";
 import React, { useState } from "react";
 import useClickOutside from "../../custom-hook/useClickOutSide";
 
