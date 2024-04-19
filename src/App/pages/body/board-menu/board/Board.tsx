@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useState } from "react";
-import useUpdatePage from "../../../../custom-hook/useUpdatePage";
+import useUpdatePage from "../../../../hooks/useUpdatePage";
 import {
   deleteDataFromApi,
   editDataFromApi,
 } from "../../../../utils/functions-fetch";
-import useGetData from "../../../../custom-hook/useGetData";
+import useGetData from "../../../../hooks/useGetData";
 import MenuDropDown from "../../../../components/menu-drop-down/MenuDropDown";
 import CreateListBoardTasks from "../../board-details/create-list-board-tasks/CreateListBoardTasks";
 

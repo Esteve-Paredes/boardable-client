@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useState } from "react";
 import { Tasks } from "../list-task/ListTask";
-import useUpdatePage from "../../../../custom-hook/useUpdatePage";
+import useUpdatePage from "../../../../hooks/useUpdatePage";
 import {
   deleteDataFromApi,
   editDataFromApi,

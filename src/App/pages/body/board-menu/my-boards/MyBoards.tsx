@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { myColors } from "../../../../utils/variables";
-import useUpdatePage from "../../../../custom-hook/useUpdatePage";
+import useUpdatePage from "../../../../hooks/useUpdatePage";
 import { postDataFromApi } from "../../../../utils/functions-fetch";
-import useGetData from "../../../../custom-hook/useGetData";
+import useGetData from "../../../../hooks/useGetData";
 import InputText from "../../../../components/InputText/InputText";
 import MenuColor from "../../../../components/menu-color/MenuColor";
 

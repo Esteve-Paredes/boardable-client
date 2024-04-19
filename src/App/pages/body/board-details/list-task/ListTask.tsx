@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Task from "../task/Task";
 import { DataListTask } from "../../board-menu/board/Board";
-import useUpdatePage from "../../../../custom-hook/useUpdatePage";
+import useUpdatePage from "../../../../hooks/useUpdatePage";
 import {
   deleteDataFromApi,
   editDataFromApi,
 } from "../../../../utils/functions-fetch";
-import useGetData from "../../../../custom-hook/useGetData";
+import useGetData from "../../../../hooks/useGetData";
 import MenuDropDown from "../../../../components/menu-drop-down/MenuDropDown";
 import ButtonAddCard from "../../../../components/button-add-a-card/ButtonAddCard";
 

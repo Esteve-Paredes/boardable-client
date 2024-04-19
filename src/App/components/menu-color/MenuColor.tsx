@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { myColors } from "../../utils/variables";
 import styles from "./styles.module.css";
-import useClickOutside from "../../custom-hook/useClickOutSide";
+import useClickOutside from "../../hooks/useClickOutSide";
 
 type formData = {
   title: string;

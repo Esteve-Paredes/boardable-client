@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import React, { useState } from "react";
 import { DataListTask } from "../../board-menu/board/Board";
-import useUpdatePage from "../../../../custom-hook/useUpdatePage";
+import useUpdatePage from "../../../../hooks/useUpdatePage";
 import { postDataFromApi } from "../../../../utils/functions-fetch";
 import InputText from "../../../../components/InputText/InputText";
 import ListTask from "../list-task/ListTask";

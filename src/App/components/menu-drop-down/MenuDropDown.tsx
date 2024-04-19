@@ -2,7 +2,7 @@ import styles from "./styles.module.css";
 import classNames from "classnames";
 import more from "../../../assets/more.svg";
 import React, { useState } from "react";
-import useClickOutside from "../../custom-hook/useClickOutSide";
+import useClickOutside from "../../hooks/useClickOutSide";
 
 type PropsBoard = {
   title: string;

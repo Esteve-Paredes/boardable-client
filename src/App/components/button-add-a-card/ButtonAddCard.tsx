@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import { postDataFromApi } from "../../utils/functions-fetch";
 import { useNavigate, useParams } from "react-router-dom";
 import { DataListTask } from "../../body/board/Board";
-import useUpdatePage from "../../custom-hook/useUpdatePage";
+import useUpdatePage from "../../hooks/useUpdatePage";
 
 type PropsTask = {
   task: DataListTask;
