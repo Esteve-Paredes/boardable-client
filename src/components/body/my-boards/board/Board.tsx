@@ -1,14 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useState } from "react";
+import useUpdatePage from "../../../../custom-hook/useUpdatePage";
 import {
   deleteDataFromApi,
   editDataFromApi,
-} from "../../utils/functions-fetch";
-import MenuDropDown from "./menu-drop-down/MenuDropDown";
-import CreateListBoardTasks from "./1-create-list-board-tasks/CreateListBoardTasks";
-import useUpdatePage from "./custom-hook/useUpdatePage";
-import useGetData from "./custom-hook/useGetData";
+} from "../../../../utils/functions-fetch";
+import useGetData from "../../../../custom-hook/useGetData";
+import MenuDropDown from "../../../../Global-Components/menu-drop-down/MenuDropDown";
+import CreateListBoardTasks from "./create-list-board-tasks/CreateListBoardTasks";
 
 export type DataListTask = {
   boardid: number;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDataFromApi } from "../../../utils/functions-fetch";
+import { getDataFromApi } from "../utils/functions-fetch";
 import { useNavigate } from "react-router-dom";
 
 interface EndPointAndParamas {

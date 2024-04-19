@@ -1,35 +1,34 @@
-import styles from "./styles.module.css";
-import logo from "../assets/logo.svg";
-import arrow from "../assets/arrow.svg";
+import styles from "../signup/styles.module.css";
+import logo from "../../assets/logo.svg";
+import arrow from "../../assets/arrow.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { postDataFromApi } from "../utils/functions-fetch";
-import InputText from "../Components/InputText/InputText";
+import { postDataFromApi } from "../../utils/functions-fetch";
+import InputText from "../../Global-Components/InputText/InputText";
 
 const initialFormData = {
   username: "",
   password: "",
 };
 
-function Signup() {
+function Login() {
   const [formData, setFormData] = useState(initialFormData);
-  const [errorMessage, setErrorMessage] = useState(false);
-  const [usernameUsed, setUsernameUsed] = useState(false);
+  const [validCredentials, serValidCredentials] = useState(false);
+
   const navigate = useNavigate();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await postDataFromApi("/signup", formData);
+    const response = await postDataFromApi("/login", formData);
     console.log(response);
 
     if (response.data?.ok === true) {
-      localStorage.setItem("user", JSON.stringify(response.data.data));
+      localStorage.setItem("user", JSON.stringify(response?.data.data));
       navigate("/");
-    } else if (response.ok === false) {
-      setUsernameUsed(true);
     } else {
-      console.error("fallo al crear un usuario");
+      serValidCredentials(true);
+      console.error("usuario no encontrado");
     }
   };
 
@@ -37,12 +36,6 @@ function Signup() {
     const { name, value } = event.target;
     const nextFormData = { ...formData, [name]: value };
     setFormData(nextFormData);
-
-    if (name === "password" && value.length < 6) {
-      setErrorMessage(true);
-    } else {
-      setErrorMessage(false);
-    }
   }
 
   return (
@@ -57,11 +50,6 @@ function Signup() {
           value={formData.username}
           onChange={handleChange}
         />
-        {usernameUsed && (
-          <span className={styles.errorMessage}>
-            El usuario esta registrado
-          </span>
-        )}
         <InputText
           label="Password"
           type="password"
@@ -69,19 +57,17 @@ function Signup() {
           value={formData.password}
           onChange={handleChange}
         />
-        {errorMessage && (
-          <span className={styles.errorMessage}>
-            La contraseña debe tener mas de 6 letras
-          </span>
-        )}
-        <button className={styles.button}>Signup</button>
+        <button className={styles.button}>Login</button>
       </form>
-      <Link className={styles.linkCreate} to={"/login"}>
-        Login to your account
+      <Link className={styles.linkCreate} to={"/signup"}>
+        Create an account
         <img className={styles.arrow} src={arrow} alt="arrow" />
       </Link>
+      {validCredentials && (
+        <span className={styles.errorMessage}>Invalid Credentials</span>
+      )}
     </div>
   );
 }
 
-export default Signup;
+export default Login;

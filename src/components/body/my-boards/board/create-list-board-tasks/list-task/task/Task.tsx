@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
+import styles from "./styles.module.css";
+import { useState } from "react";
+import useUpdatePage from "../../../../../../../custom-hook/useUpdatePage";
 import {
   deleteDataFromApi,
   editDataFromApi,
-} from "../../../utils/functions-fetch";
-import MenuDropDown from "../menu-drop-down/MenuDropDown";
-import styles from "./styles.module.css";
-import { useState } from "react";
-import { Tasks } from "../2-list-task/ListTask";
-import useUpdatePage from "../custom-hook/useUpdatePage";
+} from "../../../../../../../utils/functions-fetch";
+import MenuDropDown from "../../../../../../../Global-Components/menu-drop-down/MenuDropDown";
+import { Tasks } from "../ListTask";
 
 type PropsTask = {
   task: Tasks;
