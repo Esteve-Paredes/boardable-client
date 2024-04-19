@@ -4,7 +4,7 @@ import arrow from "../../../assets/arrow.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { postDataFromApi } from "../../utils/functions-fetch";
-import InputText from "../../global-components/InputText/InputText";
+import InputText from "../../components/InputText/InputText";
 
 const initialFormData = {
   username: "",

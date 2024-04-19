@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import { myColors } from "../../../utils/variables";
-import useUpdatePage from "../../../custom-hook/useUpdatePage";
-import { postDataFromApi } from "../../../utils/functions-fetch";
-import useGetData from "../../../custom-hook/useGetData";
-import InputText from "../../../global-components/InputText/InputText";
-import MenuColor from "../../../global-components/menu-color/MenuColor";
+import { myColors } from "../../../../utils/variables";
+import useUpdatePage from "../../../../custom-hook/useUpdatePage";
+import { postDataFromApi } from "../../../../utils/functions-fetch";
+import useGetData from "../../../../custom-hook/useGetData";
+import InputText from "../../../../components/InputText/InputText";
+import MenuColor from "../../../../components/menu-color/MenuColor";
 
 export type DataBoars = {
   id: number;

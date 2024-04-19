@@ -2,11 +2,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App/App";
-import Login from "./App/components/login/Login";
-import Signup from "./App/components/signup/Signup";
-import Body from "./App/components/body/Body";
-import MyBoards from "./App/components/body/my-boards/MyBoards";
-import Board from "./App/components/body/my-boards/board/Board";
+import Login from "./App/pages/login/Login";
+import Signup from "./App/pages/signup/Signup";
+import Body from "./App/pages/body/Body";
+import Board from "./App/pages/body/board-menu/board/Board";
+import MyBoards from "./App/pages/body/board-menu/my-boards/MyBoards";
 
 const router = createBrowserRouter([
   {

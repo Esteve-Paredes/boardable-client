@@ -1,16 +1,16 @@
 import styles from "./styles.module.css";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { DataListTask } from "../../Board";
-import useUpdatePage from "../../../../../../custom-hook/useUpdatePage";
+import Task from "../task/Task";
+import { DataListTask } from "../../board-menu/board/Board";
+import useUpdatePage from "../../../../custom-hook/useUpdatePage";
 import {
   deleteDataFromApi,
   editDataFromApi,
-} from "../../../../../../utils/functions-fetch";
-import useGetData from "../../../../../../custom-hook/useGetData";
-import MenuDropDown from "../../../../../../global-components/menu-drop-down/MenuDropDown";
-import ButtonAddCard from "../../../../../../global-components/button-add-a-card/ButtonAddCard";
-import Task from "./task/Task";
+} from "../../../../utils/functions-fetch";
+import useGetData from "../../../../custom-hook/useGetData";
+import MenuDropDown from "../../../../components/menu-drop-down/MenuDropDown";
+import ButtonAddCard from "../../../../components/button-add-a-card/ButtonAddCard";
 
 type PropsTask = {
   listTask: DataListTask;

@@ -7,8 +7,8 @@ import {
   editDataFromApi,
 } from "../../../../utils/functions-fetch";
 import useGetData from "../../../../custom-hook/useGetData";
-import MenuDropDown from "../../../../global-components/menu-drop-down/MenuDropDown";
-import CreateListBoardTasks from "./create-list-board-tasks/CreateListBoardTasks";
+import MenuDropDown from "../../../../components/menu-drop-down/MenuDropDown";
+import CreateListBoardTasks from "../../board-details/create-list-board-tasks/CreateListBoardTasks";
 
 export type DataListTask = {
   boardid: number;

@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import React, { useState } from "react";
-import { DataListTask } from "../Board";
-import useUpdatePage from "../../../../../custom-hook/useUpdatePage";
-import { postDataFromApi } from "../../../../../utils/functions-fetch";
-import InputText from "../../../../../global-components/InputText/InputText";
-import ListTask from "./list-task/ListTask";
+import { DataListTask } from "../../board-menu/board/Board";
+import useUpdatePage from "../../../../custom-hook/useUpdatePage";
+import { postDataFromApi } from "../../../../utils/functions-fetch";
+import InputText from "../../../../components/InputText/InputText";
+import ListTask from "../list-task/ListTask";
 
 const list = {
   title: "",
