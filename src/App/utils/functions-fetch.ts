@@ -2,14 +2,17 @@ import axios, { AxiosRequestConfig } from "axios";
 import { URL } from "./variables";
 import { getUserLocalStorage } from "./getUserLocalStorage";
 
-type Response = {
+/* type Response = {
   config: object;
-  data: object;
+  data: {
+    ok: boolean;
+    data: object;
+  };
   headers: object;
   request: object;
   status: number;
   statusText: string;
-};
+}; */
 
 type Config = {
   headers: object;
@@ -37,42 +40,18 @@ const getConfig = (params?: object) => {
   return config;
 };
 
-export const postDataFromApi = async (endPoint: string, data: object) => {
-  try {
-    return await axios.post<Response>(URL + endPoint, data, getConfig());
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return error.response?.data;
-    }
-  }
+export const postDataFromApi = (endPoint: string, body: object) => {
+  return axios.post(URL + endPoint, body, getConfig());
 };
 
-export const getDataFromApi = async (endPoint: string, params?: object) => {
-  try {
-    return await axios.get<Response>(URL + endPoint, getConfig(params));
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return error.response?.data;
-    }
-  }
+export const getDataFromApi = (endPoint: string, params?: object) => {
+  return axios.get(URL + endPoint, getConfig(params));
 };
 
 export const editDataFromApi = async (endPoint: string, data: object) => {
-  try {
-    return await axios.patch<Response>(URL + endPoint, data, getConfig());
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return error.response?.data;
-    }
-  }
+  return await axios.patch(URL + endPoint, data, getConfig());
 };
 
 export const deleteDataFromApi = async (endPoint: string, params?: object) => {
-  try {
-    return await axios.delete<Response>(URL + endPoint, getConfig(params));
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return error.response?.data;
-    }
-  }
+  return await axios.delete(URL + endPoint, getConfig(params));
 };

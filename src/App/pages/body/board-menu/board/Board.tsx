@@ -40,10 +40,9 @@ function Board() {
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
-      const response = await editDataFromApi(`/boards/${id}`, {
+      await editDataFromApi(`/boards/${id}`, {
         title: titleEdit,
       });
-      console.log(response.data.data);
       setCurrentPage(!currentPage);
     }
   };

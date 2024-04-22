@@ -21,16 +21,9 @@ function Signup() {
     event.preventDefault();
 
     const response = await postDataFromApi("/signup", formData);
-    console.log(response);
-
-    if (response.data?.ok === true) {
-      localStorage.setItem("user", JSON.stringify(response.data.data));
-      navigate("/");
-    } else if (response.ok === false) {
-      setUsernameUsed(true);
-    } else {
-      console.error("fallo al crear un usuario");
-    }
+    if (response.data.ok === false) return setUsernameUsed(true);
+    localStorage.setItem("user", JSON.stringify(response.data.data));
+    navigate("/");
   };
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {

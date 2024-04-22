@@ -24,13 +24,12 @@ function useGetData<T>(hookConfig: HookConfig<T>) {
     window.scrollTo(0, 0);
     const fetch = async () => {
       const response = await getDataFromApi(endPoint, params);
-      if (response.ok === false) {
+      if (response.data.ok === false) {
         localStorage.removeItem("user");
         navigate("/login");
         return;
       }
       setApiResponse(response.data.data);
-      console.log(response.data);
     };
 
     fetch();

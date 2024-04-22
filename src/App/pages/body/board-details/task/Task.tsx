@@ -22,23 +22,21 @@ function Task({ task }: PropsTask) {
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
-      const response = await editDataFromApi(`/boards/${id}/task`, {
+      await editDataFromApi(`/boards/${id}/task`, {
         taskId: task.id,
         title: titleEdit,
       });
-      console.log(response);
       setCurrentPage(!currentPage);
     }
   };
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await deleteDataFromApi(`/boards/${id}/task`, {
+    await deleteDataFromApi(`/boards/${id}/task`, {
       params: {
         taskId: task.id,
       },
     });
-    console.log(response);
     setCurrentPage(!currentPage);
   };
 

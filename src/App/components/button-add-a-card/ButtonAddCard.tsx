@@ -2,8 +2,8 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import { postDataFromApi } from "../../utils/functions-fetch";
 import { useNavigate, useParams } from "react-router-dom";
-import { DataListTask } from "../../body/board/Board";
 import useUpdatePage from "../../hooks/useUpdatePage";
+import { DataListTask } from "../../pages/body/board-menu/board/Board";
 
 type PropsTask = {
   task: DataListTask;
@@ -49,7 +49,7 @@ function ButtonAddCard({ task }: PropsTask) {
         boardId: task.boardid,
         tasklistId: task.id,
       });
-      if (response.ok === false) {
+      if (response.data.ok === false) {
         localStorage.removeItem("user");
         navigate("/login");
         return;
@@ -57,7 +57,6 @@ function ButtonAddCard({ task }: PropsTask) {
       setInputDisplay(!inputDisplay);
       setCurrentPage(!currentPage);
       formData.title = "";
-      console.log(response);
     };
 
     postData();

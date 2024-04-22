@@ -7,6 +7,9 @@ import Signup from "./App/pages/signup/Signup";
 import Body from "./App/pages/body/Body";
 import Board from "./App/pages/body/board-menu/board/Board";
 import MyBoards from "./App/pages/body/board-menu/my-boards/MyBoards";
+import { axiosInterceptor } from "./App/utils/axios-interceptor";
+
+axiosInterceptor();
 
 const router = createBrowserRouter([
   {

@@ -37,14 +37,13 @@ function MyBoards() {
       return;
     }
 
-    const response = await postDataFromApi("/", {
+    await postDataFromApi("/", {
       title: formData.title,
       color: formData.color,
     });
     setCurrentPage(!currentPage);
     setErrorInputText(false);
     formData.title = "";
-    console.log(response);
   };
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {

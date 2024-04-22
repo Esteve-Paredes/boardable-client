@@ -46,14 +46,13 @@ function CreateListBoardTasks({ dataListBoardTask }: Props) {
         return;
       }
       const response = await postDataFromApi(`/boards/${id}`, formData);
-      if (response.ok === false) {
+      if (response.data.ok === false) {
         localStorage.removeItem("user");
         navigate("/login");
         return;
       }
       setCurrentPage(!currentPage);
       formData.title = "";
-      console.log(response.data);
     };
 
     postData();

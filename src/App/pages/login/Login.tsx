@@ -21,14 +21,12 @@ function Login() {
     event.preventDefault();
 
     const response = await postDataFromApi("/login", formData);
-    console.log(response);
 
-    if (response.data?.ok === true) {
-      localStorage.setItem("user", JSON.stringify(response?.data.data));
+    if (response.data.ok === true) {
+      localStorage.setItem("user", JSON.stringify(response.data.data));
       navigate("/");
     } else {
       serValidCredentials(true);
-      console.error("usuario no encontrado");
     }
   };
 

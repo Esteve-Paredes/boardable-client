@@ -33,23 +33,21 @@ function ListTask({ listTask }: PropsTask) {
   //func edit para el componenete MenuDropDown
   const editAction = async () => {
     if (titleEdit !== "") {
-      const response = await editDataFromApi(`/boards/${id}/listtask`, {
+      await editDataFromApi(`/boards/${id}/listtask`, {
         taskId: listTask.id,
         title: titleEdit,
       });
-      console.log(response);
       setCurrentPage(!currentPage);
     }
   };
 
   //func delete para el componente MenuDropDown
   const deleteAction = async () => {
-    const response = await deleteDataFromApi(`/boards/${id}/listtask`, {
+    await deleteDataFromApi(`/boards/${id}/listtask`, {
       params: {
         listTask: listTask.id,
       },
     });
-    console.log(response);
     setCurrentPage(!currentPage);
   };
 
