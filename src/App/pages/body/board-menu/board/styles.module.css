@@ -1,0 +1,20 @@
+.bodyBoard {
+  display: flex;
+  width: 100%;
+  padding: 0px 16px;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background: #fecaca;
+}
+
+.containerBoard {
+  display: flex;
+  height: 928px;
+  max-width: 1280px;
+  padding: 16px 0px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+}

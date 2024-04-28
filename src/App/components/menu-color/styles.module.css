@@ -1,0 +1,37 @@
+.containerMenuColor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.colorMessage {
+  color: #262626;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.menuColors {
+  border: 1px solid;
+  border-radius: 15px;
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.containerColors {
+  display: grid;
+  gap: 4px;
+  position: absolute;
+  top: 27px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 8px;
+  right: -52px;
+  box-sizing: border-box;
+
+  border-radius: var(--rounded-md, 6px);
+  background: var(--background, #fff);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+}
