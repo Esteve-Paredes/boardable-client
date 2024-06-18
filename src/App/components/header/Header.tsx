@@ -20,7 +20,6 @@ function Header() {
         <h1 className={styles.title}>Boardable</h1>
       </div>
       <div className={styles.botonContainer}>
-        <button className={styles.bAccount}>My Account</button>
         <button className={styles.bLogout} onClick={handdleClick}>
           Logout
         </button>

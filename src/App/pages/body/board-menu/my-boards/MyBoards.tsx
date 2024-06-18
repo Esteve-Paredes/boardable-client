@@ -66,12 +66,6 @@ function MyBoards() {
     <div className={styles.bodyBoards}>
       <div className={styles.containerBoards}>
         <h1 className={styles.titleBoards}>My Boards</h1>
-        <div className={styles.containerSelect}>
-          <p className={styles.message}>Sort by</p>
-          <select className={styles.select} name="date">
-            <option value="date">created date</option>
-          </select>
-        </div>
       </div>
       <div className={styles.gridContainer}>
         <form

@@ -2,18 +2,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import { URL } from "./variables";
 import { getUserLocalStorage } from "./getUserLocalStorage";
 
-/* type Response = {
-  config: object;
-  data: {
-    ok: boolean;
-    data: object;
-  };
-  headers: object;
-  request: object;
-  status: number;
-  statusText: string;
-}; */
-
 type Config = {
   headers: object;
   params: object;
